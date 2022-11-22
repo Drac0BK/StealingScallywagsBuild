@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityCore;
 using UnityCore.Audio;
 
 public class Weapon : MonoBehaviour
@@ -38,6 +37,7 @@ public class Weapon : MonoBehaviour
     {
         if(myPlayer != null)
         animator = myPlayer.GetComponent<MyPlayer>().characterAnimator;
+        //audioManager = GameObject.Find("InGameAudioManager").GetComponent<AudioManager>();
 
     }
 
@@ -111,11 +111,47 @@ public class Weapon : MonoBehaviour
                 firstSwing = false;
                 animator.SetTrigger("Sword_Use_1");
 
-
+            if (AudioManager.Instance != null)
+            {
+                if (ownerNumber == 0)
+                {
+                    float rand = Random.Range(0, 2);
+                    if (rand == 0)
+                        AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "SwordSwing_2", false, 0.0f);
+                    if (rand == 1)
+                        AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "SwordSwing_4", false, 0.0f);
+                }
+                else if (ownerNumber == 1)
+                {
+                    float rand = Random.Range(0, 2);
+                    if (rand == 0)
+                        AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "SwordSwing_2", false, 0.0f);
+                    if (rand == 1)
+                        AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "SwordSwing_4", false, 0.0f);
+                }
+                else if (ownerNumber == 2)
+                {
+                    float rand = Random.Range(0, 2);
+                    if (rand == 0)
+                        AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "SwordSwing_2", false, 0.0f);
+                    if (rand == 1)
+                        AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "SwordSwing_4", false, 0.0f);
+                }
+                else if (ownerNumber == 3)
+                {
+                    float rand = Random.Range(0, 2);
+                    if (rand == 0)
+                        AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "SwordSwing_2", false, 0.0f);
+                    if (rand == 1)
+                        AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "SwordSwing_4", false, 0.0f);
+                }
+            }
+            else
+            {
+                Debug.LogError("There is an audio manager attached");
+            }
             
-
-            
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 3f);
             foreach (var hitCollider in hitColliders)
                 if (hitCollider.GetComponent<MyPlayer>() != null && hitCollider.GetComponent<MyPlayer>().isHit == false && hitCollider.gameObject != player.gameObject)
                     if (!hitCollider.transform.GetComponent<MyPlayer>().GetInvul())
@@ -156,6 +192,20 @@ public class Weapon : MonoBehaviour
         }
         else if(isBomb && !hasThrown)
         {
+            if (AudioManager.Instance != null)
+            {
+                if (ownerNumber == 0)
+                    AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_1, "Bomb_FuseBurning", false, 0.0f);
+                else if (ownerNumber == 1)
+                    AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_2, "Bomb_FuseBurning", false, 0.0f);
+                else if (ownerNumber == 2)
+                    AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_3, "Bomb_FuseBurning", false, 0.0f);
+                else if (ownerNumber == 3)
+                    AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_4, "Bomb_FuseBurning", false, 0.0f);
+            }
+            {
+                Debug.LogError("There is an audio manager attached");
+            }
 
             animator.SetTrigger("Bomb_Use");
             hasThrown = true;
@@ -180,6 +230,33 @@ public class Weapon : MonoBehaviour
             bomb.GetComponent<Weapon>().fusePoint.transform.rotation, bomb.GetComponent<Weapon>().fusePoint.transform);
         yield return new WaitForSeconds(2f);
 
+        if (AudioManager.Instance != null)
+        {
+            if (ownerNumber == 0)
+            {
+                AudioManager.Instance.StopAudio(UnityCore.Audio.AudioType.Bomb_Player_1, "Bomb_FuseBurning", false, 0.0f);
+                AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_1, "Bomb_Explosion", false, 0.0f);
+            }
+            else if (ownerNumber == 1)
+            {
+                AudioManager.Instance.StopAudio(UnityCore.Audio.AudioType.Bomb_Player_2, "Bomb_FuseBurning", false, 0.0f);
+                AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_2, "Bomb_Explosion", false, 0.0f);
+            }
+            else if (ownerNumber == 2)
+            {
+                AudioManager.Instance.StopAudio(UnityCore.Audio.AudioType.Bomb_Player_3, "Bomb_FuseBurning", false, 0.0f);
+                AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_3, "Bomb_Explosion", false, 0.0f);
+            }
+            else if (ownerNumber == 3)
+            {
+                AudioManager.Instance.StopAudio(UnityCore.Audio.AudioType.Bomb_Player_4, "Bomb_FuseBurning", false, 0.0f);
+                AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_4, "Bomb_Explosion", false, 0.0f);
+            }
+        }
+        else 
+        {
+            Debug.LogError("There is an audio manager attached");
+        }
 
 
         bombPosition = bomb.transform.position;
@@ -211,6 +288,17 @@ public class Weapon : MonoBehaviour
         Debug.Log("kek shooty");
         GameObject gunFireClone = Instantiate(gunFire, gunFire.transform.position, gunFire.transform.rotation);
         gunFireClone.SetActive(true);
+
+        
+            if (ownerNumber == 0)
+                AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "Gunshot", false, 0.0f);
+            else if (ownerNumber == 1)
+                AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_2, "Gunshot", false, 0.0f);
+            else if (ownerNumber == 2)
+                AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_3, "Gunshot", false, 0.0f);
+            else if (ownerNumber == 3)
+                AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_4, "Gunshot", false, 0.0f);
+        
 
         yield break;
     }

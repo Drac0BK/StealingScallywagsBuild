@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8455267749594238868
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2551504488377699632, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551504488377699634, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 2551504488377699634, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: m_Name
+      value: DirtSmack Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551504488377699647, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551504488377699647, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551504488377699647, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551504488377699647, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551504488377699647, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551504488377699647, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d2e7647e8907fe343a2359987c5e575a, type: 3}

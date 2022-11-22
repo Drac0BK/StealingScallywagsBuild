@@ -10,7 +10,6 @@ namespace UnityCore
         {
             BGM,
             System,
-            Announcer,
             Player_1,
             Player_2,
             Player_3,

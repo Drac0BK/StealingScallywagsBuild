@@ -19,10 +19,13 @@ public class GameManager : MonoBehaviour
     public List<GameObject> ramps = new List<GameObject>();
     public List<TMPro.TMP_Text> scoreTexts;
 
-    
+
     [SerializeField]
     float timer = 120.0f;
     bool timerStop = false;
+
+    float gameStartTimer = 3.0f;
+    float textGone = 1.0f;
 
     PlayerConfigManager playerConfigManager;
 
@@ -39,10 +42,16 @@ public class GameManager : MonoBehaviour
 
     int playerCount = 0;
     public TMPro.TMP_Text timerText;
+    public TMPro.TMP_Text gameStartTimerText;
     public GameObject timerUI;
     public GameObject waterEndScreen;
+
+    bool gameStart = false;
+    bool once = false;
     private void Start()
     {
+        playerCount = players.Count;
+        timerText.text = "3:00";
         playerConfigManager = FindObjectOfType<PlayerConfigManager>();
         GetPlayers();
         Camera cam = Camera.main;
@@ -70,13 +79,13 @@ public class GameManager : MonoBehaviour
             }
 
             int j = 0;
-            foreach(var listSpot in players)
+            foreach (var listSpot in players)
             {
-                if(players[j].gameObject == null)
+                if (players[j].gameObject == null)
                     players.RemoveAt(j);
             }
-            if(boatSpots != null)
-            SetLevel();
+            if (boatSpots != null)
+                SetLevel();
         }
     }
 
@@ -101,7 +110,7 @@ public class GameManager : MonoBehaviour
     {
         int position = 0;
         int iconSpot = 0;
-        foreach(var objectIcon in iconManager.objectList)
+        foreach (var objectIcon in iconManager.objectList)
         {
             objectIcon.gameObject.SetActive(false);
         }
@@ -127,7 +136,7 @@ public class GameManager : MonoBehaviour
                             players[iconSpot].GetComponent<MyPlayer>().SetWeapon(0);
                             ramps[position].gameObject.SetActive(true);
                             position += 1; iconSpot += 1;
-                            
+
                         }
                         if (player.gameObject.name.Contains("Lori"))
                         {
@@ -168,8 +177,8 @@ public class GameManager : MonoBehaviour
                             spawnedPlayers[iconSpot].GetComponent<MyPlayer>().playerIcon = iconManager.iconList[iconSpot].playerIcon;
                             player.GetComponent<MyPlayer>().SetWeapon(0);
                             ramps[position].gameObject.SetActive(true);
-                            position +=1; iconSpot += 1;
-                        }                       
+                            position += 1; iconSpot += 1;
+                        }
                     }
                 }
             }
@@ -180,83 +189,110 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isPaused && !timerStop)
+        if (gameStartTimer > 0)
         {
-            if(pauseMenu.activeSelf)
-                pauseMenu.SetActive(false);
-            Time.timeScale = 1;
-            timer -= Time.deltaTime;
+            gameStartTimer -= Time.deltaTime;
+            int time = (int)gameStartTimer + 1;
+            gameStartTimerText.text = time.ToString();
         }
-        else if (isPaused && !timerStop)
-        {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0;
-
-        }
-        float sec = timer % 60;
-        int mins = ((int)timer / 60);
-        string seconds = "what";
-        string minutes = "WHAT";
-        if (sec < 60 && sec > 59.5f)
-            minutes = (mins + 1).ToString();
         else
-            minutes = mins.ToString();
-
-        if (sec < 9.5f)
-            seconds =  "0" + sec.ToString("f0");
-        else if(sec < 60 && sec > 59.5f)
-            seconds = "00";
-        else
-            seconds = sec.ToString("f0");
-        timerText.text = minutes + ":" + seconds;
-
-        if (scoreZones != null)
         {
-            for (int i = 0; i < scoreZones.Count; i++)
+            
+            gameStart = true;
+            gameStartTimerText.text = "GO!";
+            if (textGone > 0)
+                textGone -= Time.deltaTime;
+            else
             {
-                scoreTexts[i].text = scoreZones[i].GetComponent<ScoreZones>().GetScore().ToString();
-
+                gameStartTimerText.gameObject.SetActive(false);
+                once = true;
             }
         }
-        if (timerText != null && !gameOver)
-        {
-            if (timer < 0)
-            {
-                //Camera.main.gameObject.SetActive(false);
-                timerText.gameObject.SetActive(false);
-                timerStop = true;
-                Time.timeScale = 0;
-                timerUI.gameObject.SetActive(false);
-                //foreach (var scores in scoreZones)
-                //{
-                //    if (scores.GetComponent<ScoreZones>().GetScore() > topScore)
-                //    {
-                //        topScore = scores.GetComponent<ScoreZones>().GetScore();
-                //        topPlayer = currentPlayer;
-                //    }
-                //    currentPlayer += 1;
-                //}
-                //timerText.text = "Player " + players[topPlayer].name + " Wins with a score of " + topScore.ToString();
-                levelObject.SetActive(false);
-                winScreen.SetActive(true);
 
-                waterEndScreen.SetActive(true);
-                int j = 1;
-                for (int i = 0; i < players.Count; i++)
+
+
+        if (gameStart)
+        {
+            if (once)
+            {
+                for (int i = 0; i < spawnedPlayers.Count; i++)
                 {
-                    MyPlayer player = spawnedPlayers[i].GetComponent<MyPlayer>();
-                    string name = "Player " + j;
-                    winnerSet.AddPlayers(player.playerIcon, scoreZones[i].GetComponent<ScoreZones>().GetScore(), name, player.name);
-                    j += 1;
+                    spawnedPlayers[i].GetComponent<MyPlayer>().SetMove(true);
                 }
-                winnerSet.SortScores(players.Count);
-                gameOver = true;
-               for(int i = 0; i < players.Count; i ++)
-                    spawnedPlayers[i].SetActive(false);
+
+                once = false;
+            }
+
+
+
+            if (!isPaused && !timerStop)
+            {
+                if (pauseMenu.activeSelf)
+                    pauseMenu.SetActive(false);
+                Time.timeScale = 1;
+                timer -= Time.deltaTime;
+            }
+            else if (isPaused && !timerStop)
+            {
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0;
+
+            }
+            float sec = timer % 60;
+            int mins = ((int)timer / 60);
+            string seconds = "what";
+            string minutes = "WHAT";
+            if (sec < 60 && sec > 59.5f)
+                minutes = (mins + 1).ToString();
+            else
+                minutes = mins.ToString();
+
+            if (sec < 9.5f)
+                seconds = "0" + sec.ToString("f0");
+            else if (sec < 60 && sec > 59.5f)
+                seconds = "00";
+            else
+                seconds = sec.ToString("f0");
+            timerText.text = minutes + ":" + seconds;
+
+            if (scoreZones != null)
+            {
+                for (int i = 0; i < scoreZones.Count; i++)
+                {
+                    scoreTexts[i].text = scoreZones[i].GetComponent<ScoreZones>().GetScore().ToString();
+
+                }
+            }
+            if (timerText != null && !gameOver)
+            {
+                if (timer < 0)
+                {
+                    //Camera.main.gameObject.SetActive(false);
+                    timerText.gameObject.SetActive(false);
+                    timerStop = true;
+                    Time.timeScale = 0;
+                    timerUI.gameObject.SetActive(false);
+
+                    levelObject.SetActive(false);
+                    winScreen.SetActive(true);
+
+                    waterEndScreen.SetActive(true);
+                    int j = 1;
+                    for (int i = 0; i < players.Count; i++)
+                    {
+                        MyPlayer player = spawnedPlayers[i].GetComponent<MyPlayer>();
+                        string name = "Player " + j;
+                        winnerSet.AddPlayers(player.playerIcon, scoreZones[i].GetComponent<ScoreZones>().GetScore(), name, player.name);
+                        j += 1;
+                    }
+
+                    winnerSet.SortScores(players.Count);
+                    gameOver = true;
+                    for (int i = 0; i < players.Count; i++)
+                        spawnedPlayers[i].SetActive(false);
+
+                }
             }
         }
     }
-
-
-
 }

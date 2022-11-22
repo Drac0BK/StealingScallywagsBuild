@@ -34,6 +34,14 @@ public class WinnerSetScreen : MonoBehaviour
     public List<TextMeshProUGUI> scores = new List<TextMeshProUGUI>();
     public List<Transform> playerSpots = new List<Transform>();
     public List<GameObject> playerResultsPrefab = new List<GameObject> ();
+    public List<GameObject> playerWinnerPrefab = new List<GameObject>();
+    public List<GameObject> playerLoserPrefab = new List<GameObject>();
+
+
+    GameObject shell;
+    GameObject bob;
+    GameObject aB;
+    GameObject lori;
 
 
     ScoreList scoreList = new ScoreList();
@@ -49,6 +57,45 @@ public class WinnerSetScreen : MonoBehaviour
         scoreList.list.Add(playerScore);
     }
 
+    //private void Start(){ Test(4); }
+
+    public void Test(int playerCount)
+    {
+        newscoreList = scoreList;
+
+        shell = Instantiate(playerResultsPrefab[0], playerSpots[0].position, playerSpots[0].rotation, transform);
+        lori = Instantiate(playerResultsPrefab[1], playerSpots[1].position, playerSpots[1].rotation, transform);
+        bob = Instantiate(playerResultsPrefab[2], playerSpots[2].position, playerSpots[2].rotation, transform);
+        aB = Instantiate(playerResultsPrefab[3], playerSpots[3].position, playerSpots[3].rotation, transform);
+
+        //Instantiate(playerWinnerPrefab[0], shell.transform.position, shell.transform.rotation, transform);
+        //Destroy(shell.gameObject);
+        //
+        //Instantiate(playerWinnerPrefab[1], lori.transform.position, lori.transform.rotation, transform);
+        //Destroy(lori.gameObject);
+        //
+        //Instantiate(playerWinnerPrefab[2], bob.transform.position, bob.transform.rotation, transform);
+        //Destroy(bob.gameObject);
+        //
+        Instantiate(playerWinnerPrefab[3], aB.transform.position, shell.transform.rotation, transform);
+        Destroy(aB.gameObject);
+
+
+         Instantiate(playerLoserPrefab[0], shell.transform.position, shell.transform.rotation, transform);
+         Destroy(shell.gameObject);
+
+         Instantiate(playerLoserPrefab[1], lori.transform.position, lori.transform.rotation, transform);
+         Destroy(lori.gameObject);
+
+         Instantiate(playerLoserPrefab[2], bob.transform.position, bob.transform.rotation, transform);
+         Destroy(bob.gameObject);
+
+         //Instantiate(playerLoserPrefab[3], aB.transform.position, aB.transform.rotation, transform);
+         //Destroy(aB.gameObject);
+        for (int i = 0; i < playerCount; i++)
+            SetUi(i, newscoreList.list[i].icon, newscoreList.list[i].score, newscoreList.list[i].charName);
+    }
+
     public void SortScores(int playerCount)
     {
         newscoreList = scoreList;
@@ -56,13 +103,13 @@ public class WinnerSetScreen : MonoBehaviour
         for(int i = 0; i < playerCount; i ++)
         {
             if(scoreList.list[i].prefabName.Contains("Shell"))
-                Instantiate(playerResultsPrefab[0], playerSpots[i].position, playerSpots[i].rotation, transform);
+                shell = Instantiate(playerResultsPrefab[0], playerSpots[i].position, playerSpots[i].rotation, transform);
             if (scoreList.list[i].prefabName.Contains("Lori"))
-                Instantiate(playerResultsPrefab[1], playerSpots[i].position, playerSpots[i].rotation, transform);
+                lori =Instantiate(playerResultsPrefab[1], playerSpots[i].position, playerSpots[i].rotation, transform);
             if (scoreList.list[i].prefabName.Contains("Bob"))
-                Instantiate(playerResultsPrefab[2], playerSpots[i].position, playerSpots[i].rotation, transform);
+                bob = Instantiate(playerResultsPrefab[2], playerSpots[i].position, playerSpots[i].rotation, transform);
             if (scoreList.list[i].prefabName.Contains("Angry"))
-                Instantiate(playerResultsPrefab[3], playerSpots[i].position, playerSpots[i].rotation, transform);
+                aB = Instantiate(playerResultsPrefab[3], playerSpots[i].position, playerSpots[i].rotation, transform);
         }
 
 
@@ -72,15 +119,63 @@ public class WinnerSetScreen : MonoBehaviour
 
 
         for (int i = 0; i < playerCount; i++)
+        {
+            if(i == 0) // Winner Animation 
+            {
+                if (newscoreList.list[i].prefabName.Contains("Shell"))
+                {
+                    Instantiate(playerWinnerPrefab[0], shell.transform.position, shell.transform.rotation, transform);
+                    //Instantiate  crown shell.transform + vectro3.up * 2
+                    Destroy(shell.gameObject);
+                }
+
+                if (newscoreList.list[i].prefabName.Contains("Lori"))
+                {
+                    Instantiate(playerWinnerPrefab[0], lori.transform.position, lori.transform.rotation, transform);
+                    Destroy(lori.gameObject);
+                }
+
+                if (newscoreList.list[i].prefabName.Contains("Bob"))
+                {
+                    Instantiate(playerWinnerPrefab[0], bob.transform.position, bob.transform.rotation, transform);
+                    Destroy(bob.gameObject);
+                }
+
+                if (newscoreList.list[i].prefabName.Contains("Angry"))
+                {
+                    Instantiate(playerWinnerPrefab[0], aB.transform.position, shell.transform.rotation, transform);
+                    Destroy(aB.gameObject);
+                }
+            }
+            else // Loser Animation
+            {
+                if (newscoreList.list[i].prefabName.Contains("Shell"))
+                {
+                    Instantiate(playerLoserPrefab[0], shell.transform.position, shell.transform.rotation, transform);
+                    Destroy(shell.gameObject);
+                }
+
+                if (newscoreList.list[i].prefabName.Contains("Lori"))
+                {
+                    Instantiate(playerLoserPrefab[0], lori.transform.position, lori.transform.rotation, transform);
+                    Destroy(lori.gameObject);
+                }
+
+                if (newscoreList.list[i].prefabName.Contains("Bob"))
+                {
+                    Instantiate(playerLoserPrefab[0], bob.transform.position, bob.transform.rotation, transform);
+                    Destroy(bob.gameObject);
+                }
+
+                if (newscoreList.list[i].prefabName.Contains("Angry"))
+                {
+                    Instantiate(playerLoserPrefab[0], aB.transform.position, aB.transform.rotation, transform);
+                    Destroy(aB.gameObject);
+                }
+            }
+
             SetUi(i, newscoreList.list[i].icon, newscoreList.list[i].score, newscoreList.list[i].charName);
-
-
-        //int i = 0;
-        //foreach(var item in scoreList.list)
-        //{
-        //    SetUi(i, item.icon,item.score,item.charName);
-        //    i += 1;
-        //}
+        }
     }
 
     void SetUi(int a_spot, Image a_Icon, float a_score, string a_charName)

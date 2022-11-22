@@ -21,11 +21,19 @@ public class KrakenOriginSwing : MonoBehaviour
 
     public GameObject shadow;
 
+    bool canSwing = false;
+    float canSwingTimer = 6.0f;
+
     public void SetActive(bool a) { isActive = a; }
 
     private void Update()
     {
-        if (isActive)
+        if(isActive && !canSwing)
+        canSwingTimer -= Time.deltaTime;
+        if(canSwingTimer < 0)
+            canSwing = true;
+
+        if (isActive && canSwing)
         {        
             if (playerCount != 0 && !isSwinging)
                 timer += Time.deltaTime;
@@ -41,13 +49,13 @@ public class KrakenOriginSwing : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<MyPlayer>() != null)
+        if (other.GetComponent<MyPlayer>() != null && canSwing)
             playerCount += 1;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<MyPlayer>() != null)
+        if (other.GetComponent<MyPlayer>() != null && canSwing)
             playerCount -= 1;
     }
 

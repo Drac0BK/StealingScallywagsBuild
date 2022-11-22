@@ -43,7 +43,10 @@ public class FallingEvent : MonoBehaviour
                 iterations -= 1;
             }
             foreach (var obj in fallingObjects)
+            {
+                if(obj != null)
                 obj.GetComponent<FallingObjects>().GoTowardsPoint();
+            }
             
         }
     }

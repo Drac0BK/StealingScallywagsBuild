@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6124170044020686926, guid: a0e2f4b24d61dcb41899aab6fafaa747, type: 3}
       propertyPath: m_MaxPlayerCount
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6124170044020686926, guid: a0e2f4b24d61dcb41899aab6fafaa747, type: 3}
       propertyPath: m_JoinAction.m_Reference
@@ -709,7 +709,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press Start
+  m_text: 'Press Start
+
+    Player 1'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc66fde920a130d4eb8733177c5f6e8e, type: 2}
   m_sharedMaterial: {fileID: 8299793368177783982, guid: dc66fde920a130d4eb8733177c5f6e8e, type: 2}
@@ -1792,6 +1794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f152ee69752b04492a0d675e19b9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadingScreen: {fileID: 0}
 --- !u!4 &1687455629
 Transform:
   m_ObjectHideFlags: 0
@@ -2013,7 +2016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2006221651
 RectTransform:
   m_ObjectHideFlags: 0

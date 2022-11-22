@@ -9,7 +9,7 @@ namespace UnityCore
         public class AudioManager : MonoBehaviour
         {
             // members (basic data types availble in inspector
-            public static AudioManager instance;
+            public static AudioManager Instance;
 
             public bool debug;
             public AudioTrack[] tracks;
@@ -62,9 +62,9 @@ namespace UnityCore
             private void Awake()
             {
                 //instance  To initalise the script.
-                if (!instance)
-                { 
-                    instance = this;
+                if (!Instance)
+                {
+                    Instance = this;
                     Configure();
                 }
             }
@@ -98,7 +98,7 @@ namespace UnityCore
 
             private void Configure ()
             {
-                instance = this;
+                Instance = this;
                 m_AudioTable = new Hashtable();
                 m_JobTable = new Hashtable();
                 GenerateAudioTable();

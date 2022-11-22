@@ -55,12 +55,15 @@ public class MyPlayer : MonoBehaviour
     PlayerConfiguration playerConfig;
 
     private int playerNumber;
-    //private AudioManager audioManager;
+    //public AudioManager audioManager;
 
     float blunderTimer = 3.5f;
     float bombTimer = 7.0f;
     public bool reloadStart = false;
     public bool bombStop = false;
+    bool canMove = false;
+
+    public void SetMove(bool a_move) { canMove = a_move; }
 
     private void Start()
     {
@@ -243,7 +246,9 @@ public class MyPlayer : MonoBehaviour
             playerConfig = pc;
             playerConfig.Input.onActionTriggered += Input_onActionTriggered;
             playerNumber = playerConfig.Input.playerIndex;
-            //audioManager = gameManager.audioManager.GetComponent<AudioManager>();
+
+            //audioManager = GameObject.Find("InGameAudioManager").GetComponent<AudioManager>();
+            
 
             foreach (GameObject weapon in weaponList)
             {
@@ -329,14 +334,17 @@ public class MyPlayer : MonoBehaviour
 
     public void MovePlayer(InputAction.CallbackContext context)
     {
+        
         if (isHit)
             movementInput = new Vector2(0, 0);
-        movementInput = context.action.ReadValue<Vector2>();
+        if (canMove)
+            movementInput = context.action.ReadValue<Vector2>();
     }
 
 
     public void Jump(InputAction.CallbackContext context)
     {
+        if(canMove)
         if(!isHit)
             jumped = context.action.triggered;
     }
@@ -481,86 +489,59 @@ public class MyPlayer : MonoBehaviour
 
     public IEnumerator InvulFrames(float time)
     {
-            isInvul = true;
-            characterAnimator.ResetTrigger("Stun_End");
-            stunEffect.SetActive(true);
-            isHit = true;
-            hpAnimator.SetTrigger("TakeDamage");
-            characterAnimator.SetTrigger("Stun_Start");
+        isInvul = true;
+        characterAnimator.ResetTrigger("Stun_End");
+        stunEffect.SetActive(true);
+        isHit = true;
+        hpAnimator.SetTrigger("TakeDamage");
+        characterAnimator.SetTrigger("Stun_Start");
 
-           //if (playerNumber == 0)
-           //{
-           //    if (gameObject.name.Contains("Shell"))
-           //        audioManager.PlayAudio(UnityCore.Audio.AudioType.Player_1, "Shell_Hit", false, 0.0f);
-           //    //if (this.gameObject.name.Contains("Lori"))
-           //    //;
-           //    if (gameObject.name.Contains("Bob"))
-           //        audioManager.PlayAudio(UnityCore.Audio.AudioType.Player_1, "Bob_Hit", false, 0.0f);
-           //    //if (this.gameObject.name.Contains("Beard"))
-           //    //;
-           //}
-           //else if (playerNumber == 1)
-           //{
-           //    if (gameObject.name.Contains("Shell"))
-           //        audioManager.PlayAudio(UnityCore.Audio.AudioType.Player_2, "Shell_Hit", false, 0.0f);
-           //    //if (this.gameObject.name.Contains("Lori"))
-           //    //;
-           //    if (gameObject.name.Contains("Bob"))
-           //        audioManager.PlayAudio(UnityCore.Audio.AudioType.Player_2, "Bob_Hit", false, 0.0f);
-           //    //if (this.gameObject.name.Contains("Beard"))
-           //    //;
-           //}
-           //else if (playerNumber == 2)
-           //{
-           //    if (gameObject.name.Contains("Shell"))
-           //        audioManager.PlayAudio(UnityCore.Audio.AudioType.Player_3, "Shell_Hit", false, 0.0f);
-           //    //if (gameObject.name.Contains("Lori"))
-           //    //;
-           //    if (gameObject.name.Contains("Bob"))
-           //        audioManager.PlayAudio(UnityCore.Audio.AudioType.Player_3, "Bob_Hit", false, 0.0f);
-           //    //if (gameObject.name.Contains("Beard"))
-           //    //;
-           //}
-           //else if (playerNumber == 3)
-           //{
-           //    if (gameObject.name.Contains("Shell"))
-           //        audioManager.PlayAudio(UnityCore.Audio.AudioType.Player_4, "Shell_Hit", false, 0.0f);
-           //    //if (gameObject.name.Contains("Lori"))
-           //    //;
-           //    if (gameObject.name.Contains("Bob"))
-           //        audioManager.PlayAudio(UnityCore.Audio.AudioType.Player_4, "Bob_Hit", false, 0.0f);
-           //    //if (gameObject.name.Contains("Beard"))
-           //    //;
-           //}
+        /*
+        if (playerNumber == 0)
+        {
+            AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "Dizzy_Effectsd", false, 0.0f);
+        }
+        else if (playerNumber == 1)
+        {
+            AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_2, "Dizzy_Effects", false, 0.0f);
+        }
+        else if (playerNumber == 2)
+        {
+            AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_3, "Dizzy_Effects", false, 0.0f);
+        }
+        else if (playerNumber == 3)
+        {
+            AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_4, "Dizzy_Effects", false, 0.0f);
+        }
+        */
 
-
-            float temp = 0;
-            while (temp <= time)
+        float temp = 0;
+        while (temp <= time)
+        {
+            if (treasureCarried != null)
             {
-                if (treasureCarried != null)
-                {
-                    treasureCarried.transform.parent = null;
-                    treasureCarried.GetComponent<Rigidbody>().isKinematic = false;
-                    treasureCarried.GetComponent<MeshCollider>().enabled = true;
-                    treasureCarried.GetComponent<Collider>().enabled = true;
-                    characterAnimator.SetLayerWeight(4, 0);
-                    isCarrying = false;
-                    treasureCarried = null;
-                }
-
-                yield return new WaitForSeconds(1);
-
-                temp++;
+                treasureCarried.transform.parent = null;
+                treasureCarried.GetComponent<Rigidbody>().isKinematic = false;
+                treasureCarried.GetComponent<MeshCollider>().enabled = true;
+                treasureCarried.GetComponent<Collider>().enabled = true;
+                characterAnimator.SetLayerWeight(4, 0);
+                isCarrying = false;
+                treasureCarried = null;
             }
 
-            characterAnimator.SetTrigger("Stun_End");
-            stunEffect.SetActive(false);
-            yield return new WaitForSeconds(1f);
-            isHit = false;
+            yield return new WaitForSeconds(1);
+
+            temp++;
+        }
+
+        characterAnimator.SetTrigger("Stun_End");
+        stunEffect.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        isHit = false;
 
         
-        yield return new WaitForSeconds(3f);
-        isInvul = false;
+    yield return new WaitForSeconds(3f);
+    isInvul = false;
     }
 
     public void Respawn()

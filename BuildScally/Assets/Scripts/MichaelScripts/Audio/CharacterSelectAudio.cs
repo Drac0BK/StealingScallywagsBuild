@@ -15,21 +15,7 @@ public class CharacterSelectAudio : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int rand = ((int)Random.Range(1, 4));
-        switch (rand)
-        {
-            case 1:
-                audioManager.RestartAudio(UnityCore.Audio.AudioType.Announcer, "EnteringCharacterSelect_Line1", false, 0.0f);
-                break;
 
-            case 2:
-                audioManager.RestartAudio(UnityCore.Audio.AudioType.Announcer, "EnteringCharacterSelect_Line2", false, 0.0f);
-                break;
-
-            case 3:
-                audioManager.RestartAudio(UnityCore.Audio.AudioType.Announcer, "EnteringCharacterSelect_Line3", false, 0.0f);
-                break;
-        }
     }
 
     // Update is called once per frame
