@@ -277,7 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 2006221650}
     - target: {fileID: 6124170044020686921, guid: a0e2f4b24d61dcb41899aab6fafaa747, type: 3}
       propertyPath: maxPlayers
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6124170044020686926, guid: a0e2f4b24d61dcb41899aab6fafaa747, type: 3}
       propertyPath: m_JoinBehavior

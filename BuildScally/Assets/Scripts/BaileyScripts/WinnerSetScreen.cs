@@ -131,19 +131,19 @@ public class WinnerSetScreen : MonoBehaviour
 
                 if (newscoreList.list[i].prefabName.Contains("Lori"))
                 {
-                    Instantiate(playerWinnerPrefab[0], lori.transform.position, lori.transform.rotation, transform);
+                    Instantiate(playerWinnerPrefab[1], lori.transform.position, lori.transform.rotation, transform);
                     Destroy(lori.gameObject);
                 }
 
                 if (newscoreList.list[i].prefabName.Contains("Bob"))
                 {
-                    Instantiate(playerWinnerPrefab[0], bob.transform.position, bob.transform.rotation, transform);
+                    Instantiate(playerWinnerPrefab[2], bob.transform.position, bob.transform.rotation, transform);
                     Destroy(bob.gameObject);
                 }
 
                 if (newscoreList.list[i].prefabName.Contains("Angry"))
                 {
-                    Instantiate(playerWinnerPrefab[0], aB.transform.position, shell.transform.rotation, transform);
+                    Instantiate(playerWinnerPrefab[3], aB.transform.position, shell.transform.rotation, transform);
                     Destroy(aB.gameObject);
                 }
             }
@@ -157,19 +157,19 @@ public class WinnerSetScreen : MonoBehaviour
 
                 if (newscoreList.list[i].prefabName.Contains("Lori"))
                 {
-                    Instantiate(playerLoserPrefab[0], lori.transform.position, lori.transform.rotation, transform);
+                    Instantiate(playerLoserPrefab[1], lori.transform.position, lori.transform.rotation, transform);
                     Destroy(lori.gameObject);
                 }
 
                 if (newscoreList.list[i].prefabName.Contains("Bob"))
                 {
-                    Instantiate(playerLoserPrefab[0], bob.transform.position, bob.transform.rotation, transform);
+                    Instantiate(playerLoserPrefab[2], bob.transform.position, bob.transform.rotation, transform);
                     Destroy(bob.gameObject);
                 }
 
                 if (newscoreList.list[i].prefabName.Contains("Angry"))
                 {
-                    Instantiate(playerLoserPrefab[0], aB.transform.position, aB.transform.rotation, transform);
+                    Instantiate(playerLoserPrefab[3], aB.transform.position, aB.transform.rotation, transform);
                     Destroy(aB.gameObject);
                 }
             }
