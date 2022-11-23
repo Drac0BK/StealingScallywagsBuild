@@ -270,7 +270,7 @@ public class GameManager : MonoBehaviour
                     //Camera.main.gameObject.SetActive(false);
                     timerText.gameObject.SetActive(false);
                     timerStop = true;
-                    Time.timeScale = 0;
+                    Time.timeScale = 1;
                     timerUI.gameObject.SetActive(false);
 
                     levelObject.SetActive(false);
@@ -290,7 +290,12 @@ public class GameManager : MonoBehaviour
                     gameOver = true;
                     for (int i = 0; i < players.Count; i++)
                         spawnedPlayers[i].SetActive(false);
-
+                    var objects = GameObject.FindGameObjectsWithTag("Treasure");
+                    foreach (GameObject obj in objects)
+                    {
+                        Destroy(obj);
+                    }
+                    gameObject.SetActive(false);
                 }
             }
         }

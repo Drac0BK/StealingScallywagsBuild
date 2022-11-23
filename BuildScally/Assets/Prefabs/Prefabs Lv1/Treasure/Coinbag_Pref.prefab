@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4005956023385190824}
   m_Layer: 12
   m_Name: Coinbag_Pref
-  m_TagString: Untagged
+  m_TagString: Treasure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

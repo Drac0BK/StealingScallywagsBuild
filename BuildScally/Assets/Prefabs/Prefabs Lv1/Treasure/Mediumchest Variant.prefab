@@ -298,6 +298,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3cb17bacc44b7044582aa693b710ffb0, type: 3}
+      propertyPath: m_TagString
+      value: Treasure
+      objectReference: {fileID: 0}
     - target: {fileID: 1042620415417695104, guid: 3cb17bacc44b7044582aa693b710ffb0, type: 3}
       propertyPath: m_Layer
       value: 12

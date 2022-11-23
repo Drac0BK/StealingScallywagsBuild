@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.22531387, g: 0.20087257, b: 0.147926, a: 1}
+  m_IndirectSpecularColor: {r: 0.04154715, g: 0.033377297, b: 0.019133955, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6984,9 +6984,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.1764706, g: 0.6509804, b: 0.87843144, a: 1}
+    m_PressedColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
+    m_SelectedColor: {r: 0.1779548, g: 0.6507516, b: 0.8773585, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -7006,9 +7006,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1724890392}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: Menu
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28823,7 +28823,7 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 524d24682fbcf4743a5ce43e7fec4c9b, type: 3}
   - {fileID: 919132149155446097, guid: 06370f6d88977be45890b638d0993c99, type: 3}
   playerWinnerPrefab:
-  - {fileID: 7222340172192116921, guid: 455f17d38b6f87b46bd0f5851929e51b, type: 3}
+  - {fileID: 6317018696082450870, guid: b216372b9ee671c48ad8f9638530ba2f, type: 3}
   - {fileID: 5066911823161654006, guid: 9e6585643406ba147937a8a8c907fd7d, type: 3}
   - {fileID: 9156436783556319204, guid: eeb53f6807fe239419aa4900b8ee4c1b, type: 3}
   - {fileID: 6491105732409315390, guid: b840a2c0f3f7f054289e8dd34a5b50a1, type: 3}
@@ -28832,6 +28832,7 @@ MonoBehaviour:
   - {fileID: 8122662443923949925, guid: 69422bfe08da9424ca5230b85190ebd7, type: 3}
   - {fileID: 1964912779334586141, guid: 4d3ce6afc9538e0488a1c338f15638c6, type: 3}
   - {fileID: 5798608783984115326, guid: 053b678babb479d44853272c73e866f8, type: 3}
+  playAgain: {fileID: 2017891882}
 --- !u!1 &1334760386
 GameObject:
   m_ObjectHideFlags: 0
@@ -43649,9 +43650,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.1764706, g: 0.6509804, b: 0.87843144, a: 1}
+    m_PressedColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
+    m_SelectedColor: {r: 0.1779548, g: 0.6507516, b: 0.8773585, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -43671,7 +43672,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1724890392}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
         m_MethodName: LevelSelectScene
         m_Mode: 1

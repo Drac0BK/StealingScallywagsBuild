@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Linq;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class WinnerSetScreen : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class WinnerSetScreen : MonoBehaviour
     public List<GameObject> playerResultsPrefab = new List<GameObject> ();
     public List<GameObject> playerWinnerPrefab = new List<GameObject>();
     public List<GameObject> playerLoserPrefab = new List<GameObject>();
+    public Button playAgain;
 
 
     GameObject shell;
@@ -176,6 +178,8 @@ public class WinnerSetScreen : MonoBehaviour
 
             SetUi(i, newscoreList.list[i].icon, newscoreList.list[i].score, newscoreList.list[i].charName);
         }
+        if (playAgain != null)
+            playAgain.Select();
     }
 
     void SetUi(int a_spot, Image a_Icon, float a_score, string a_charName)

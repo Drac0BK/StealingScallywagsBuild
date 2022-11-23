@@ -114,9 +114,13 @@ public class PlayerConfigManager : MonoBehaviour
     }
     public void StartGame()
     {
-        if(ready != null)    
-            if(ready.activeSelf)
+        if (ready != null)
+            if (ready.activeSelf)
+            {
                 ready.GetComponent<Button>().onClick.Invoke();
+                GetComponent<PlayerInputManager>().DisableJoining();
+            }
+
     }
 
     public void test()
