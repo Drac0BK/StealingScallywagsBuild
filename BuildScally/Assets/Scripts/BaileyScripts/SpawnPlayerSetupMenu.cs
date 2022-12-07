@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.UI;
 
 public class SpawnPlayerSetupMenu : MonoBehaviour
 {
+    // spawns the player selection menu for the players based on their player index
     public GameObject playerSetupMenuPrefab;
     public PlayerInput input;
     private void Awake()

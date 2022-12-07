@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
     bool canSpawn = false;
     Vector3 randSpawn = new Vector3(0, 0);
     float xPoint , yPoint;
-
+    // gets the spawn timer from the editor
     private void Start()
     {
         spawnTimer = setSpawnTimer;
@@ -22,6 +22,7 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
+        //will begin immediatly and will spawn the corresponding treasure
         if (stopSpawning > 0)
         {
             stopSpawning -= Time.deltaTime;
@@ -42,6 +43,7 @@ public class Spawner : MonoBehaviour
 
     void SpawnTreasure()
     {
+        //this decides where and what treasure is spawned in
         int randomSpawner = Random.Range(0, spawnPoints.Count);
         pos = spawnPoints[randomSpawner].transform.position;
         if (spawnPoints[randomSpawner].GetComponent<SpawnerRange>() != null)
@@ -53,9 +55,7 @@ public class Spawner : MonoBehaviour
 
         int failSpawn = 0;
         int randTreasure = Random.Range(0, treasurePrefabs.Count);
-        //int spawnRangeMin = treasurePrefabs[randTreasure].GetComponent<SpawnableObjects>().GetMin();
-        int spawnRangeMax = treasurePrefabs[randTreasure].GetComponent<SpawnableObjects>().GetMax();
-
+        // while the item can have a spot spawn, it can spawn based on the parameters given of the area it can
         while (!canSpawn)
         {
             randSpawn = new Vector3(Random.Range(pos.x - xPoint, pos.x + xPoint),
@@ -80,7 +80,7 @@ public class Spawner : MonoBehaviour
                 return;
             }
         }
-        //Debug.Log("Treasure Num: " + treasurePrefabs[randTreasure].name + ", Pos x: " + randSpawn.x + ", Pos z: " + randSpawn.z);
+        //spawns the treasure in
         GameObject treasure = Instantiate(treasurePrefabs[randTreasure], randSpawn, spawnPoints[randomSpawner].transform.rotation, null);
         treasure.GetComponent<SpawnableObjects>().Spawner = gameObject;
         canSpawn = false;

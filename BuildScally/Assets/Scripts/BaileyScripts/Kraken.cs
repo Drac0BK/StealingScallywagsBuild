@@ -9,7 +9,7 @@ public class Kraken : MonoBehaviour
     int count = 0;
     int highest = 0;
     int spotList = 0;
-
+    // turns all kraken tentacles and swing locations.
     public void FindPlayerSpot()
     {
         int i = 0;

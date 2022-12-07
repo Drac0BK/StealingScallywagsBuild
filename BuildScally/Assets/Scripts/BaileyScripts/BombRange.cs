@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BombRange : MonoBehaviour
 {
+    //NOT FOR FINAL RELEASE
     void Update()
     {
         RaycastHit hit;

@@ -161,19 +161,7 @@ MonoBehaviour:
   returnPoint: {x: 0, y: 0}
   respawnLocation: {fileID: 0}
   isCarried: 0
---- !u!65 &3539832663741549330
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6594614464891365346}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.34999996, y: 0.2, z: 0.12639663}
-  m_Center: {x: -0.00000001354651, y: 0.000000033866275, z: 0.061800748}
+  wasCarried: 0
 --- !u!1001 &3162910107017115233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -316,10 +304,5 @@ GameObject:
 --- !u!4 &5942040291043670921 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3cb17bacc44b7044582aa693b710ffb0, type: 3}
-  m_PrefabInstance: {fileID: 6196081539244760162}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6594614464891365346 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1042620415417695104, guid: 3cb17bacc44b7044582aa693b710ffb0, type: 3}
   m_PrefabInstance: {fileID: 6196081539244760162}
   m_PrefabAsset: {fileID: 0}

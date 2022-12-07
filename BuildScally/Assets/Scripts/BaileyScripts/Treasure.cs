@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Treasure : MonoBehaviour
 {
+    /// NOT FOR FINAL RELEASE ************************************************************
     [SerializeField]
     private int score = 0;
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
+    // NOT FOR FINAL RELEASE ***************************************************
     [SerializeField]
     int weaponIndex;
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerListSelect : MonoBehaviour
 {
+
     public List<GameObject> playerPrefabs = new List<GameObject>();
     List<GameObject> takenPrefabs = new List<GameObject>();
 
@@ -25,7 +26,7 @@ public class PlayerListSelect : MonoBehaviour
 
     bool add = true;
 
-    private void Start()
+    private void Start() // gets all the information needed for the player select ui
     {
         playerConfigManager = FindObjectOfType<PlayerConfigManager>();
         playerPrefab = playerPrefabs[count];
@@ -39,7 +40,7 @@ public class PlayerListSelect : MonoBehaviour
     }
 
     public GameObject GetPrefab() { return playerPrefab; }
-    public void SetPrefab() 
+    public void SetPrefab()  // sets the prefab on the ui for the player to choose from
     { 
         playerPrefab = playerPrefabs[count]; 
         displayPrefab.GetComponent<MeshFilter>().mesh = playerMesh[count].GetComponent<MeshFilter>().sharedMesh;
@@ -49,7 +50,7 @@ public class PlayerListSelect : MonoBehaviour
         ChangeCurrent();
 
     }
-    public void NextCount() 
+    public void NextCount() // goes right in prefabs
     { 
         count += 1;
         if(count >= 4) 
@@ -57,7 +58,7 @@ public class PlayerListSelect : MonoBehaviour
         add = true;
         SetPrefab();
     }
-    public void PrevCount()
+    public void PrevCount() // goes left in prefabs
     {
         count -= 1;
         if (count <= -1)
@@ -65,7 +66,7 @@ public class PlayerListSelect : MonoBehaviour
         add=false;
         SetPrefab();
     }
-    public void ChangeCurrent()
+    public void ChangeCurrent()// changes the prefab shown to the players and will continue till a prefab is available
     {
         while(!CheckIfPossible())
         {
@@ -88,7 +89,7 @@ public class PlayerListSelect : MonoBehaviour
     }
 
 
-    bool CheckIfPossible()
+    bool CheckIfPossible() // checks if the prefab is avaialble to be chosen
     {
         playerConfigs = playerConfigManager.GetPlayerPrefabs();
         foreach(var prefabs in playerConfigs)
@@ -100,7 +101,7 @@ public class PlayerListSelect : MonoBehaviour
         return true;
     }
 
-    public void SetPlayer()
+    public void SetPlayer() //sets the player prefab if it is applicable
     {
         if (CheckIfPossible())
         {
@@ -109,20 +110,9 @@ public class PlayerListSelect : MonoBehaviour
             cancel.Select();
         }
     }
-    public void ClearPlayer()
+    public void ClearPlayer()// clear player prefab
     {
         playerSetupMenuController.SetPlayerPrefab(null);
     }
-    //        foreach(var button in confirmButtons)
-    //        {
-    //            if(i == count)
-    //            {
-    //                confirmButtons[i].gameObject.SetActive(true);
-    //            }
-    //            else
-    //              confirmButtons[i].gameObject.SetActive(false);
-    
-    //            i += 1;
-    //        }
 }
 

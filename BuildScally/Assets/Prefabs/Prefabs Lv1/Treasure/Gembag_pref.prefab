@@ -106,6 +106,7 @@ MonoBehaviour:
   returnPoint: {x: 0, y: 0}
   respawnLocation: {fileID: 0}
   isCarried: 0
+  wasCarried: 0
 --- !u!135 &5657635083592069847
 SphereCollider:
   m_ObjectHideFlags: 0

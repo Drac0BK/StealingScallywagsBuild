@@ -28,6 +28,7 @@ public class KrakenOriginSwing : MonoBehaviour
 
     private void Update()
     {
+        // if the player is in range of swing, begin timer, if 0 begin swing
         if(isActive && !canSwing)
         canSwingTimer -= Time.deltaTime;
         if(canSwingTimer < 0)
@@ -49,12 +50,14 @@ public class KrakenOriginSwing : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //begin timer
         if (other.GetComponent<MyPlayer>() != null && canSwing)
             playerCount += 1;
     }
 
     private void OnTriggerExit(Collider other)
     {
+        //stop timer
         if (other.GetComponent<MyPlayer>() != null && canSwing)
             playerCount -= 1;
     }
@@ -62,6 +65,7 @@ public class KrakenOriginSwing : MonoBehaviour
 
     public void Swing(Vector3 attackPos)
     {
+        //begin the swing, turn the tentacle and turn on ui on field for hit
         isSwinging = true;
         Quaternion targetRotation = Quaternion.LookRotation(attackPos - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1 * Time.deltaTime);
@@ -70,6 +74,7 @@ public class KrakenOriginSwing : MonoBehaviour
     }
     public IEnumerator SwingStart(Vector3 attackPos)
     {
+        //begin the swing and if the player is in range, apply hit and restart timer
         animator.SetTrigger("KrakenSlam");
         yield return new WaitForSeconds(5.1f);
         dustEffect.SetActive(true);

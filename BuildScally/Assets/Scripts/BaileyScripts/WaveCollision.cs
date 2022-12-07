@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveCollision : MonoBehaviour
-{
-    private void OnCollisionEnter(Collision collision)
+{ //causes the player to respawn if they are hit by the wave
+   private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<MyPlayer>() != null)
         {

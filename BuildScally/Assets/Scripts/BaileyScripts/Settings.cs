@@ -35,7 +35,7 @@ public class Settings : MonoBehaviour
     public float effectsVolume;
 
 
-
+    // gets all the relevent information for the game and sets them accordingly
     void Start()
     {
 
@@ -52,7 +52,6 @@ public class Settings : MonoBehaviour
         musicSlider.value = musicVolume;
         effectSlider.value = effectsVolume;
 
-        //qualityDropdown.value = quality;
 
         if (fullScreen == "true")
             isFull.isOn = true;
@@ -133,6 +132,7 @@ public class Settings : MonoBehaviour
 
     public void SaveSettings()
     {
+        // saves all the settings
         PlayerPrefs.SetFloat("Volume", setVolume);
 
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);

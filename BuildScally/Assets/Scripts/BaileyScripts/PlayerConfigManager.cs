@@ -22,6 +22,7 @@ public class PlayerConfigManager : MonoBehaviour
 
     private void Awake()
     {
+        //creates a instance of a config manager
         if (instance != null)
             Debug.Log("Make New Instance of Singleton");
         else
@@ -36,12 +37,12 @@ public class PlayerConfigManager : MonoBehaviour
     }
 
 
-
+    //sets the player model within the config
     public void SetPlayerModel(int index, GameObject prefab)
     {
         playerConfigs[index].playerPrefab = prefab;
     }
-
+    //isReady is set to true and when all players are ready the players can move on to the character select.
     public void ReadyPlayer(int index)
     {
 
@@ -53,6 +54,7 @@ public class PlayerConfigManager : MonoBehaviour
             return;
         }
     }
+    // isReady is set to false and turns off the ui till all players are ready
     public void UnReadyPlayer(int index)
     {
         playerConfigs[index].isReady = false;
@@ -65,24 +67,14 @@ public class PlayerConfigManager : MonoBehaviour
             return;
         }
     }
-
-        public List<PlayerConfiguration> GetPlayerPrefabs()
+    // gets all the player prefabs
+    public List<PlayerConfiguration> GetPlayerPrefabs()
     {
         return playerConfigs;
     }
-
+    // sets the player index, input, parent and allows the first player to go back to the main menu and continue to the level select. 
     public void HandlePlayerJoin(PlayerInput pi)
     {
-        /*
-        Debug.Log("Player Count " + PlayerInputManager.playerCount + "/" + manager.maxPlayerCount);
-        player.actions = inputActions;
-        if (manager.playerCount >= manager.maxPlayerCount  && manager.joiningEnabled)
-        {
-            manager.DisableJoining();
-            Debug.Log("Disabled Join");
-        }
-         */
-
         Debug.Log("Joined " + pi.playerIndex + " - " + pi.devices[0].displayName);
 
         if (!playerConfigs.Any(p => p.playerIndex == pi.playerIndex))
@@ -92,13 +84,10 @@ public class PlayerConfigManager : MonoBehaviour
             playerConfigs[0].Input.onActionTriggered += Input_onActionTriggered;
         }
     }
-    public void HandlePlayerQuit(PlayerInput pi)
-    {
-        Debug.Log("Quit: " + pi.playerIndex);
-    }
 
    private void Input_onActionTriggered(CallbackContext obj)
    {
+        //calls the corresponding event based on input.
         Debug.Log(obj.action.name);
         if (obj.action.name == controls.Player.Cancel.name)
             QuitSelection();
@@ -108,12 +97,14 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void QuitSelection()
     {
+        //quit to the main menu
         if (back != null)
             if (back.activeSelf)
                 back.GetComponent<Button>().onClick.Invoke();
     }
     public void StartGame()
     {
+        // continue to the level select. 
         if (ready != null)
             if (ready.activeSelf)
             {
@@ -123,16 +114,10 @@ public class PlayerConfigManager : MonoBehaviour
 
     }
 
-    public void test()
-    {
-        Debug.Log("Hello Wolrd");
-    }
 }
 
 public class PlayerConfiguration
-{ 
-
-
+{   // the player config class
     public PlayerConfiguration(PlayerInput pi)
     {
         playerIndex = pi.playerIndex;

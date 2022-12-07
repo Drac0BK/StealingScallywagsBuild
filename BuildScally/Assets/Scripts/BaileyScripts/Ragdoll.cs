@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Ragdoll : MonoBehaviour
 {
-
+    /// NOT FOR FINAL RELEASE *****************************************************
     private Animator animator = null;
     public List<Rigidbody> rigidbodies = new List<Rigidbody>();
 

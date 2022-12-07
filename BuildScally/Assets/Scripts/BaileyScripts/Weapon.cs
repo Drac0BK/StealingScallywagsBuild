@@ -25,20 +25,16 @@ public class Weapon : MonoBehaviour
 
     public GameObject fuse;
     public GameObject fusePoint;
-    //public GameObject bombRadius;
 
     public GameObject myPlayer;
     Animator animator;
 
     public int ownerNumber;
-    //private AudioManager audioManager;
 
     private void Start()
     {
         if(myPlayer != null)
         animator = myPlayer.GetComponent<MyPlayer>().characterAnimator;
-        //audioManager = GameObject.Find("InGameAudioManager").GetComponent<AudioManager>();
-
     }
 
     private void FixedUpdate()
@@ -46,7 +42,7 @@ public class Weapon : MonoBehaviour
         timer -= Time.deltaTime;
 
         string name = GetComponent<MeshFilter>().sharedMesh.name;
-
+        // turns mesh according to which weapon is on
         if (name == "cutlasssword_LOW")
         {
             isCutlass = true;
@@ -66,7 +62,7 @@ public class Weapon : MonoBehaviour
             isBomb = true;
             isBlunder = false;
         }
-
+        // allows the weapon to be used again
         if (timer <= 0)
         {
             GetComponent<MeshRenderer>().material.color = Color.white;
@@ -86,14 +82,14 @@ public class Weapon : MonoBehaviour
         }
     }
 
-
+    // turns off gun smoke and allows to shoot again
     public void ReloadFinish()
     {
         gunSmoke.SetActive(false);
         hasFired = false;
         timer = 0;
     }
-
+    // turns mesh on and can throw bomb again
     public void ThrowFinish()
     {
         GetComponent<MeshRenderer>().enabled = true;
@@ -110,7 +106,7 @@ public class Weapon : MonoBehaviour
                 animator.ResetTrigger("Sword_Use_2");
                 firstSwing = false;
                 animator.SetTrigger("Sword_Use_1");
-
+            // plays the according sound effect based on the weapon used
             if (AudioManager.Instance != null)
             {
                 if (ownerNumber == 0)
@@ -150,7 +146,7 @@ public class Weapon : MonoBehaviour
             {
                 Debug.LogError("There is an audio manager attached");
             }
-            
+            // hits any player collided with the sword
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, 3f);
             foreach (var hitCollider in hitColliders)
                 if (hitCollider.GetComponent<MyPlayer>() != null && hitCollider.GetComponent<MyPlayer>().isHit == false && hitCollider.gameObject != player.gameObject)
@@ -166,24 +162,13 @@ public class Weapon : MonoBehaviour
         }
         else if(isBlunder && !hasFired)
         {
+            //plays the animation and fires the spawned bullet 
             animator.SetTrigger("Gun_Use");
-            if (bulletPrefab == null)
-            {
-                RaycastHit hit;
-                if (Physics.SphereCast(myPlayer.transform.position + Vector3.up, 2, transform.TransformDirection(Vector3.forward), out hit, 10.0f))
-                    if (hit.transform.gameObject.GetComponent<MyPlayer>() != null)
-                    {
-                        hit.transform.GetComponent<Rigidbody>().MovePosition(hit.transform.position + player.transform.forward * 2);
-                        hit.transform.GetComponent<MyPlayer>().StartCoroutine("InvulFrames", 3f);
-                        hit.transform.GetComponent<MyPlayer>().hitPoints -= 1;
-                    }
-            }
-            else
-            {
-                GameObject bullet = Instantiate(bulletPrefab, myPlayer.transform.position + myPlayer.transform.forward * 2, myPlayer.transform.rotation);
-                bullet.GetComponent<Rigidbody>().AddForce(myPlayer.transform.forward * 12, ForceMode.Force);
-            }
 
+            GameObject bullet = Instantiate(bulletPrefab, myPlayer.transform.position + myPlayer.transform.forward * 2, myPlayer.transform.rotation);
+            bullet.GetComponent<Rigidbody>().AddForce(myPlayer.transform.forward * 12, ForceMode.Force);
+            
+            // sets the timer and begin reloading. 
             hasFired = true;
             myPlayer.GetComponent<MyPlayer>().reloadStart = hasFired;
             timer = 3.5f;
@@ -217,6 +202,7 @@ public class Weapon : MonoBehaviour
             thrownBomb.GetComponent<Weapon>().SetThrown(false);
             thrownBomb.GetComponent<Weapon>().StartCoroutine(Explode(thrownBomb));
             myPlayer.GetComponent<MyPlayer>().bombStop = hasThrown;
+            GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
@@ -229,7 +215,7 @@ public class Weapon : MonoBehaviour
         GameObject FuseSpark = Instantiate(fuse, bomb.GetComponent<Weapon>().fusePoint.transform.position, 
             bomb.GetComponent<Weapon>().fusePoint.transform.rotation, bomb.GetComponent<Weapon>().fusePoint.transform);
         yield return new WaitForSeconds(2f);
-
+        //bomb sound effect for each player
         if (AudioManager.Instance != null)
         {
             if (ownerNumber == 0)
@@ -261,7 +247,7 @@ public class Weapon : MonoBehaviour
 
         bombPosition = bomb.transform.position;
         GameObject explosionClone =  Instantiate(explosion, bombPosition, Quaternion.identity);
-
+        // hits all lthe players within the range
         Collider[] colliders = Physics.OverlapSphere(bomb.transform.position, 4.5f);
         foreach (var collider in colliders)
         {
@@ -275,6 +261,7 @@ public class Weapon : MonoBehaviour
                     collider.GetComponent<MyPlayer>().hitPoints -= 1;
                 }
         }
+        //destroy bomb clone when exploded
         bomb.GetComponent<MeshRenderer>().enabled = false;
         Destroy(FuseSpark);
         yield return new WaitForSeconds(2f);
@@ -282,7 +269,7 @@ public class Weapon : MonoBehaviour
        
         Destroy(bomb);
     }
-
+    //plays the gun soundeffect for each player
     public IEnumerator GunShot()
     {
         Debug.Log("kek shooty");
@@ -302,7 +289,7 @@ public class Weapon : MonoBehaviour
 
         yield break;
     }
-
+    // sword particles
     public IEnumerator SwordSlash()
     {
         if (swordParticles != null)
@@ -312,7 +299,7 @@ public class Weapon : MonoBehaviour
             swordParticles.SetActive(false);
         }
     }
-
+    // list of checks for animation reference
     public bool HasSwung() { return hasSwung; }
     public void SetSwung(bool a_swing) { hasSwung = a_swing; }
     public bool HasFired() { return hasFired; }

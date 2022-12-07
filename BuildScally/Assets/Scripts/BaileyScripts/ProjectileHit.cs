@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ProjectileHit : MonoBehaviour
 {
+    // is the script that the bullet uses when they collide with a object, be it player or enviroment. 
     Rigidbody body;
     private void OnCollisionEnter(Collision collision)
     {
-        //body.AddForce(Vector3.forward, ForceMode.Impulse)
-        //float velocity = (body.velocity.x + body.velocity.x + body.velocity.x)/ 3;
         if (collision.transform.GetComponent<MyPlayer>() != null)
         {
             if (!collision.transform.GetComponent<MyPlayer>().GetInvul())

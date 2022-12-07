@@ -186,6 +186,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetPause(bool setPause) { isPaused = setPause; }
     public bool GetPause() { return isPaused; }
+    public float GetTimer() { return timer; }
 
     private void Update()
     {

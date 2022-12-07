@@ -41745,6 +41745,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9213469438352615110}
     m_Modifications:
+    - target: {fileID: 420101815649524929, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2358978015116748231, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
       propertyPath: m_Name
       value: HeartIndicator
@@ -41792,6 +41796,34 @@ PrefabInstance:
     - target: {fileID: 2576995969152982568, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618792674053998621, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581296097692623738, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823009817791752860, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718020324659464817, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849455981108810247, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388632391845190606, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807082063953267154, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb26d93b7b4ba144f91d4e2a3a463c4f, type: 3}

@@ -18,15 +18,7 @@ public class Wave : MonoBehaviour
     
     private void Update()
     {
-        //timer -= Time.deltaTime;
-
-        //if (timer < 0) 
-        //{
-        //    timer = 120f;
-        //    WaveBegin();
-        //    //Debug.Log("Begin");
-        //}
-        
+        // begin the wave event when the timer reaches 0
         if (waveActive && !waveStarted)
             timer += Time.deltaTime;
 
@@ -36,7 +28,7 @@ public class Wave : MonoBehaviour
             timer = 0;
         }
             
-
+        // move the wave
         if (waveStarted)
             wave.transform.position += -transform.right * speed * Time.deltaTime;
         
@@ -50,6 +42,7 @@ public class Wave : MonoBehaviour
 
     public void WaveBegin()
     {
+        //spawn the wave object, and start moving the wave
         waveWarnings.SetActive(true);
         waveActive = true;
         waveStarted = true;
@@ -59,12 +52,14 @@ public class Wave : MonoBehaviour
 
     public void WaveEnd()
     {
+        //destroy the wave object
         waveStarted = false;
         Destroy(wave.gameObject);
     }
 
     public IEnumerator WarningStop()
     {
+        // ui element to tell players
         yield return new WaitForSeconds(5);
         waveWarnings.SetActive(false);
     }

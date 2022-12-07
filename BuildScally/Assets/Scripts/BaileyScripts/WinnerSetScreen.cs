@@ -51,6 +51,7 @@ public class WinnerSetScreen : MonoBehaviour
 
     public void AddPlayers(Image a_Icon, float a_score, string a_charName, string a_prefabName)
     {
+        //adds all the playhers to a list with their index and score
         if(scoreList.list == null)
         {
             scoreList.list = new List<PlayerScore>();
@@ -59,49 +60,10 @@ public class WinnerSetScreen : MonoBehaviour
         scoreList.list.Add(playerScore);
     }
 
-    //private void Start(){ Test(4); }
-
-    public void Test(int playerCount)
-    {
-        newscoreList = scoreList;
-
-        shell = Instantiate(playerResultsPrefab[0], playerSpots[0].position, playerSpots[0].rotation, transform);
-        lori = Instantiate(playerResultsPrefab[1], playerSpots[1].position, playerSpots[1].rotation, transform);
-        bob = Instantiate(playerResultsPrefab[2], playerSpots[2].position, playerSpots[2].rotation, transform);
-        aB = Instantiate(playerResultsPrefab[3], playerSpots[3].position, playerSpots[3].rotation, transform);
-
-        //Instantiate(playerWinnerPrefab[0], shell.transform.position, shell.transform.rotation, transform);
-        //Destroy(shell.gameObject);
-        //
-        //Instantiate(playerWinnerPrefab[1], lori.transform.position, lori.transform.rotation, transform);
-        //Destroy(lori.gameObject);
-        //
-        //Instantiate(playerWinnerPrefab[2], bob.transform.position, bob.transform.rotation, transform);
-        //Destroy(bob.gameObject);
-        //
-        Instantiate(playerWinnerPrefab[3], aB.transform.position, shell.transform.rotation, transform);
-        Destroy(aB.gameObject);
-
-
-         Instantiate(playerLoserPrefab[0], shell.transform.position, shell.transform.rotation, transform);
-         Destroy(shell.gameObject);
-
-         Instantiate(playerLoserPrefab[1], lori.transform.position, lori.transform.rotation, transform);
-         Destroy(lori.gameObject);
-
-         Instantiate(playerLoserPrefab[2], bob.transform.position, bob.transform.rotation, transform);
-         Destroy(bob.gameObject);
-
-         //Instantiate(playerLoserPrefab[3], aB.transform.position, aB.transform.rotation, transform);
-         //Destroy(aB.gameObject);
-        for (int i = 0; i < playerCount; i++)
-            SetUi(i, newscoreList.list[i].icon, newscoreList.list[i].score, newscoreList.list[i].charName);
-    }
-
     public void SortScores(int playerCount)
     {
         newscoreList = scoreList;
-
+        //spawns the playhers location based on their character they have chosen 
         for(int i = 0; i < playerCount; i ++)
         {
             if(scoreList.list[i].prefabName.Contains("Shell"))
@@ -119,7 +81,7 @@ public class WinnerSetScreen : MonoBehaviour
         newscoreList.list = scoreList.list.OrderBy(x => x.score).ToList();
         newscoreList.list.Reverse();
 
-
+        // spawns in the animation and prefab
         for (int i = 0; i < playerCount; i++)
         {
             if(i == 0) // Winner Animation 
@@ -127,7 +89,6 @@ public class WinnerSetScreen : MonoBehaviour
                 if (newscoreList.list[i].prefabName.Contains("Shell"))
                 {
                     Instantiate(playerWinnerPrefab[0], shell.transform.position, shell.transform.rotation, transform);
-                    //Instantiate  crown shell.transform + vectro3.up * 2
                     Destroy(shell.gameObject);
                 }
 
@@ -145,7 +106,7 @@ public class WinnerSetScreen : MonoBehaviour
 
                 if (newscoreList.list[i].prefabName.Contains("Angry"))
                 {
-                    Instantiate(playerWinnerPrefab[3], aB.transform.position, shell.transform.rotation, transform);
+                    Instantiate(playerWinnerPrefab[3], aB.transform.position, aB.transform.rotation, transform);
                     Destroy(aB.gameObject);
                 }
             }
@@ -178,10 +139,11 @@ public class WinnerSetScreen : MonoBehaviour
 
             SetUi(i, newscoreList.list[i].icon, newscoreList.list[i].score, newscoreList.list[i].charName);
         }
+        // selects the play again button
         if (playAgain != null)
             playAgain.Select();
     }
-
+    //sets the ui for the player in each position
     void SetUi(int a_spot, Image a_Icon, float a_score, string a_charName)
     {
         winnerSpots[a_spot].SetActive(true);

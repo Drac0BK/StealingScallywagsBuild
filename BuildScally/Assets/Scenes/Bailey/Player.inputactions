@@ -299,6 +299,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5b121432-72e6-4bf3-8509-5980897330d1",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7ea8e913-c555-458b-abcd-6c33292b1c8a",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",

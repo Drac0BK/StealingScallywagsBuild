@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
+    //changes the scene to a corresponding one 
     PlayerConfigManager playerConfigManager;
     public GameObject LoadingScreen;
 
@@ -26,12 +27,10 @@ public class SceneChanger : MonoBehaviour
     }
     public void Level1Load()
     {
-        //SceneManager.LoadScene("Lvl1Scene");
         StartCoroutine(LoadSceneAsync("Lvl1Scene"));
     }
     public void Level2Load()
     {
-        //SceneManager.LoadScene("Lvl2Scene");
         StartCoroutine(LoadSceneAsync("Lvl2Scene"));
     }
     public void ReloadScene()

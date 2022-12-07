@@ -12,7 +12,7 @@ public class IconManager : MonoBehaviour
 
 
     public void AddIconList()
-    {
+    {// Adds the players icon to a list to be turned on accordingly
         for(int i = 0; i < objectList.Count; i++)
         {
             iconList.Add(new PlayerIcon(objectList[i].playerIcon, objectList[i].gunIcon, objectList[i].swordIcon, objectList[i].bombIcon));

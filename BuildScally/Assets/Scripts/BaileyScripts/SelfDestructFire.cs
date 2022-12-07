@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SelfDestructFire : MonoBehaviour
 {
+    //destroys their effect
     public float timer;
     void Update()
     {

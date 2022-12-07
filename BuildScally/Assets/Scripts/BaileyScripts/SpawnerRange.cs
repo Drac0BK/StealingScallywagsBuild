@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnerRange : MonoBehaviour
 {
+    //NOT FOR RELEASE, DEBUGGING ****************************************************
     public List<GameObject> treasurePrefabs;
     public float x , y;
 

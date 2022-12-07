@@ -55,7 +55,6 @@ public class MyPlayer : MonoBehaviour
     PlayerConfiguration playerConfig;
 
     private int playerNumber;
-    //public AudioManager audioManager;
 
     float blunderTimer = 3.5f;
     float bombTimer = 7.0f;
@@ -67,11 +66,11 @@ public class MyPlayer : MonoBehaviour
 
     private void Start()
     {
+        //set all coresponding data of the character to the player config
         currentHitPoints = hitPoints;
         rb = GetComponent<Rigidbody>();
         startPos = transform.position;
         SetWeapon(weaponSpot);
-        //circleIndicator.GetComponent<SpriteRenderer>().color = ringColor;
         circleIndicator.GetComponent <SpriteRenderer>().color = new Vector4(ringColor.r,ringColor.g, ringColor.b, 255.0f);
         controls = new PlayerControls();
         for(int i = 0; i < weaponList.Count; i++)
@@ -82,6 +81,7 @@ public class MyPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
+        //timer of weapons
         if (reloadStart)
             blunderTimer -= Time.deltaTime;
         else if (!reloadStart && blunderTimer < 0)
@@ -115,22 +115,14 @@ public class MyPlayer : MonoBehaviour
         if (!isHit)
         {
             Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
-            //if(move.x < -0.5 && move.x > 0.5 && move.z < -0.5 && move.z > 0.5 )
-            //{
-            //    // Set Animation based on 
-            //}
             Vector3 aniMove = move;
 
-            //if(aniMove.x > aniMove.z)
-            //    animator.SetFloat("MoveBlend", aniMove.x);
-            //else
-            //    animator.SetFloat("MoveBlend", aniMove.z);
 
 
             characterAnimator.SetFloat("MoveBlendX", aniMove.x);
 
             characterAnimator.SetFloat("MoveBlendZ", aniMove.z);
-
+            //move player and animation
             rb.MovePosition((Vector3)transform.position + (move * Time.deltaTime * movementSpeed));
             if (move != Vector3.zero)
             {
@@ -151,7 +143,7 @@ public class MyPlayer : MonoBehaviour
                 characterAnimator.SetBool("IsMoving", false);
             }
         }
-       
+       // changes ui of hearts based on hp
         if(currentHitPoints > hitPoints)
         {
             currentHitPoints -= 1;
@@ -163,12 +155,12 @@ public class MyPlayer : MonoBehaviour
         {
             rb.velocity = Vector3.up * jumpVelocity;
         }
-
+        //play jump animation
         if (jumped)
             characterAnimator.SetBool("IsJumping", true);
         if (!jumped)
             characterAnimator.SetBool("IsJumping", false);
-
+        // respawn the player if they fall below the map or hit 0 hitpoints
         if (transform.position.y < -1)
         {
             Respawn();
@@ -214,7 +206,6 @@ public class MyPlayer : MonoBehaviour
 
         Physics.Raycast(downRay, out hit);
 
-        //Debug.Log(hit.distance);
         if (hit.distance > 1.2)
         {
             if (circleIndicator != null)
@@ -241,25 +232,23 @@ public class MyPlayer : MonoBehaviour
 
     public void InitializePlayer(PlayerConfiguration pc)
     {
+        //sets the corresponding player config and inputs
         if (playerConfig == null)
         {
             playerConfig = pc;
             playerConfig.Input.onActionTriggered += Input_onActionTriggered;
             playerNumber = playerConfig.Input.playerIndex;
 
-            //audioManager = GameObject.Find("InGameAudioManager").GetComponent<AudioManager>();
-            
-
             foreach (GameObject weapon in weaponList)
             {
                 weapon.GetComponent<Weapon>().ownerNumber = playerNumber;
-                //Debug.Log("done");
             }
         }
     }
 
     private void Input_onActionTriggered(CallbackContext obj)
     {
+        //checks the input from the player input to the characters 
         if (obj.action == null)
             return;
 
@@ -277,12 +266,11 @@ public class MyPlayer : MonoBehaviour
             SwapWeapon1(obj);
         if (obj.action.name == controls.Player.WeaponSwap2.name)
             SwapWeapon2(obj);
-        if (obj.action.name == controls.Player.Rotate.name)
-            RotateCharacter(obj);
     }
 
     public void SetWeapon(int weaponValue)
     {
+        //sets the weapon and mesh on
         currentWeapon= weaponList[weaponValue];
         currentWeaponScript = currentWeapon.GetComponent<Weapon>();
         int weaponScore = 0;
@@ -302,7 +290,7 @@ public class MyPlayer : MonoBehaviour
     }
     public void SetWeaponIcon()
     {
-        
+     //changes the ui icon with the corresponding item   
         if (swordIcon != null || gunIcon != null || bombIcon != null)
         {
             if (currentWeapon.name.Contains("Sword"))
@@ -334,7 +322,7 @@ public class MyPlayer : MonoBehaviour
 
     public void MovePlayer(InputAction.CallbackContext context)
     {
-        
+        // move the player when they are not hit
         if (isHit)
             movementInput = new Vector2(0, 0);
         if (canMove)
@@ -344,6 +332,7 @@ public class MyPlayer : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+        //allows the player to jump when they are not hit
         if(canMove)
         if(!isHit)
             jumped = context.action.triggered;
@@ -351,6 +340,7 @@ public class MyPlayer : MonoBehaviour
 
     public void Pick(InputAction.CallbackContext context)
     {
+        //pick up treasure that is within range and drop treasure
         if (context.started)
         {
             if (!isCarrying)
@@ -402,7 +392,7 @@ public class MyPlayer : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        //determines if can hit or net else it throws a object
+        //determines if can hit or not else it throws a object
         if (!isCarrying)
         {
             if (context.started && !isHit)
@@ -429,7 +419,7 @@ public class MyPlayer : MonoBehaviour
 
     public void PauseGame(InputAction.CallbackContext context)
     {
-        
+        // pause the game
         if(context.started && !gameManager.GetPause())
             gameManager.SetPause(true);
 
@@ -437,6 +427,7 @@ public class MyPlayer : MonoBehaviour
 
     public void SwapWeapon1(InputAction.CallbackContext context)
     {
+        // swap the weapon in the right direction
         if (context.started)
         {
             weaponSpot += 1;
@@ -453,7 +444,7 @@ public class MyPlayer : MonoBehaviour
    
     }
     public void SwapWeapon2(InputAction.CallbackContext context)
-    {
+    { // swap the weapon in the left direction.
         if (context.started)
         {
             weaponSpot -= 1;
@@ -469,15 +460,7 @@ public class MyPlayer : MonoBehaviour
         }
     }
 
-    public void RotateCharacter(InputAction.CallbackContext context)
-    {
-        if (context.started && gunIcon.gameObject.activeSelf)
-        {
-            movementInput = context.action.ReadValue<Vector2>();
-            gameObject.transform.forward = movementInput;
-        }
-    }
-
+    // stops the player from moving 
     public IEnumerator pickADrop()
     {
         isHit = true;
@@ -486,7 +469,7 @@ public class MyPlayer : MonoBehaviour
     }
 
     public bool GetInvul() { return isInvul; }
-
+    // turns on their stun animation, can't be hit until complete and unable to move till completed
     public IEnumerator InvulFrames(float time)
     {
         isInvul = true;
@@ -495,25 +478,6 @@ public class MyPlayer : MonoBehaviour
         isHit = true;
         hpAnimator.SetTrigger("TakeDamage");
         characterAnimator.SetTrigger("Stun_Start");
-
-        /*
-        if (playerNumber == 0)
-        {
-            AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_1, "Dizzy_Effectsd", false, 0.0f);
-        }
-        else if (playerNumber == 1)
-        {
-            AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_2, "Dizzy_Effects", false, 0.0f);
-        }
-        else if (playerNumber == 2)
-        {
-            AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_3, "Dizzy_Effects", false, 0.0f);
-        }
-        else if (playerNumber == 3)
-        {
-            AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Player_4, "Dizzy_Effects", false, 0.0f);
-        }
-        */
 
         float temp = 0;
         while (temp <= time)
@@ -543,9 +507,10 @@ public class MyPlayer : MonoBehaviour
     yield return new WaitForSeconds(3f);
     isInvul = false;
     }
-
+    //respawns the player on their corresponding scorezone
     public void Respawn()
     {
+        isHit = true;
         transform.position = startPos;
         isCarrying = false;
         StartCoroutine("InvulFrames", 1f);
@@ -556,7 +521,7 @@ public class MyPlayer : MonoBehaviour
             item.gameObject.SetActive(true);
         characterAnimator.ResetTrigger("Stun_End");
     }
-
+    // checks the players values with the powerups in their scorezone and change it
     public void PowerUpCheck()
     {
         if (movementSpeed < 6 || jumpVelocity < 5)
@@ -575,9 +540,7 @@ public class MyPlayer : MonoBehaviour
             powerArrows.SetActive(false);
         }
     }
-
-
-    
+    //sets the animation based on the weapon
     public void AnimCheck()
     {
         if (weaponSpot == 0)

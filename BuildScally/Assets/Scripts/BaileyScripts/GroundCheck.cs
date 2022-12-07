@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
+    //checks if the player is on the ground
     [SerializeField] private LayerMask platformLayerMask;
     CharacterController characterController;
     private bool isGrounded;

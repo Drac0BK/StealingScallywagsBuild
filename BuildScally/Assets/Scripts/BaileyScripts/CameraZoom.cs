@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Camera))]
 public class CameraZoom : MonoBehaviour
-{
+{ // tristan script
     public List<Transform> targets;
 
     public Vector3 offset;

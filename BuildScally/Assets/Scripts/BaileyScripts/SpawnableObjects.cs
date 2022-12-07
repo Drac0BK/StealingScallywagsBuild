@@ -24,16 +24,19 @@ public class SpawnableObjects : MonoBehaviour
     public bool isInside = false;
     public Vector2 returnPoint = Vector2.zero;
     public Transform respawnLocation;
+    public bool isCarried = false, wasCarried = false;
+
 
     private void Start()
     {
+        //Sets weight and mass to the editor set mass
         orignalWeight = mass;
         transform.GetComponent<Rigidbody>().mass = mass;
     }
 
     private void Update()
     {
-
+        //if the object falls below y:0, destroy the object, if it is a powerup, spawn on original ship or last location picked up
         if (transform.position.y < 0)
         {
             if (!isPowerUp)
@@ -47,17 +50,21 @@ public class SpawnableObjects : MonoBehaviour
             }
 
         }
-
+        
+        // spins the treasure when not carried and stops spinning from then on
         transform.GetComponent<Rigidbody>().mass = mass;
-        if(!isCarried)
+        if(!isCarried && !wasCarried)
         transform.Rotate(0,1,0);
+        else if(isCarried)
+            wasCarried = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
+        //when no longer carried, turn mass to original mass
         transform.GetComponent<Rigidbody>().mass = mass;
     }
-
+    // to get information from the object
     public int GetScore() { return score; }
 
     public int GetMin() { return spawnRangeMin;  }
@@ -65,7 +72,4 @@ public class SpawnableObjects : MonoBehaviour
 
     public bool IsPowerUp() { return isPowerUp; }
     public bool IsChest() { return isChest; }
-
-
-    public bool isCarried = false;
 }

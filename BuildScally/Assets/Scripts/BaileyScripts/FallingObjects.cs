@@ -14,7 +14,7 @@ public class FallingObjects : MonoBehaviour
     bool hasHitGround = false;
     bool hasHit = false;
 
-
+    // will go towards the point of reference(floor) then will delete itself using its manager
     public void GoTowardsPoint()
     {
         if (transform.position.y > targetPos.y)
@@ -36,6 +36,7 @@ public class FallingObjects : MonoBehaviour
         }
         if(hasHitGround && !hasHit)
         {
+            //hits all players in range
             hasHit = true;
             Collider[] colliders = Physics.OverlapSphere(transform.position, 4.0f);
             foreach (var collider in colliders)

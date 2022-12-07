@@ -39,9 +39,9 @@ public class EventScript : MonoBehaviour
     private AudioSource bgmAudioSource;
     private bool toggle;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // based on the level, the corresponding event is chosen by a random number
         scoreZones = GetComponent<GameManager>().scoreZones;
         int chance = Random.Range(0, 100);
         if (Lv1)
@@ -62,19 +62,24 @@ public class EventScript : MonoBehaviour
             else if (chance >= 66 && chance <= 98)
                 isCursed = true;
         }
-
-
         eventTimer = Random.Range(minTimeInclusive, maxTimeExclusive);
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        //destroy the events when they are complete
+        if(GetComponent<GameManager>().GetTimer() < 0)
+        {
+            Destroy(kraken);
+            if(Lv1)
+            Destroy(wave);
+            if(Lv2)
+            Destroy(fallEvent);
+        }
         eventTimer -= Time.deltaTime;
         
 
-
+        // when the event timer by the editor is reached, the corresponding event is called, turning them on
         if (eventTimer <= 0 && !hasOccured)
         {
             if (isKraken)
@@ -101,12 +106,13 @@ public class EventScript : MonoBehaviour
             else if(isStalactite)
             {
                 imageInAction = collapseAnnounce;
+                fallEvent.gameObject.SetActive(true);
                 announcementTimer = 3f;
             }
             hasOccured = true;  
         }
 
-
+        //plays a sound effect when a event is called
         if(bgmAudioSource != null)
         {
             if (bgmAudioSource.isPlaying == false)
@@ -143,11 +149,9 @@ public class EventScript : MonoBehaviour
             }
         }
         else
-        {
             Debug.LogError("No bgm Audio Source");
-        }
         
-
+        // turns on ui according to the event that is called and turns them off after 3 seconds
         if (imageInAction != null)
         {
 
@@ -164,12 +168,13 @@ public class EventScript : MonoBehaviour
             }
         }
     }
-
+    //spawn treasure event
     void SpawnCursedTreasure()
     {
         int cursedTreasureSpot = 0;
         if (cursedTreasure.Count != 0)
         {
+            // for each scorezone spawn a cursed treasure
             foreach (var item in scoreZones)
             {
                 cursedTreasureSpot = Random.Range(0, cursedTreasure.Count);

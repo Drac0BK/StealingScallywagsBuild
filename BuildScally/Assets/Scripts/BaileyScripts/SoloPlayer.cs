@@ -10,6 +10,8 @@ using UnityCore.Audio;
 
 public class SoloPlayer : MonoBehaviour
 {
+
+    ///NOT FOR FINAL RELEASE **************************************************************
     public float movementSpeed = 7.0f, jumpVelocity = 7.0f;
     Rigidbody rb;
     private float swordUseTime;
