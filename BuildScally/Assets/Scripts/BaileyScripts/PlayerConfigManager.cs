@@ -23,16 +23,14 @@ public class PlayerConfigManager : MonoBehaviour
     private void Awake()
     {
         //creates a instance of a config manager
-        if (instance != null)
-            Debug.Log("Make New Instance of Singleton");
+        if (instance != null) { }
         else
         {
             controls = new PlayerControls();
-            instance = this; 
-            DontDestroyOnLoad(instance); 
+            instance = this;
+            DontDestroyOnLoad(instance);
             playerConfigs = new List<PlayerConfiguration>();
             PlayerInputManager inputManager = GetComponent<PlayerInputManager>();
-            Debug.Log(inputManager.playerCount);
         }
     }
 
@@ -75,7 +73,6 @@ public class PlayerConfigManager : MonoBehaviour
     // sets the player index, input, parent and allows the first player to go back to the main menu and continue to the level select. 
     public void HandlePlayerJoin(PlayerInput pi)
     {
-        Debug.Log("Joined " + pi.playerIndex + " - " + pi.devices[0].displayName);
 
         if (!playerConfigs.Any(p => p.playerIndex == pi.playerIndex))
         {
@@ -88,7 +85,6 @@ public class PlayerConfigManager : MonoBehaviour
    private void Input_onActionTriggered(CallbackContext obj)
    {
         //calls the corresponding event based on input.
-        Debug.Log(obj.action.name);
         if (obj.action.name == controls.Player.Cancel.name)
             QuitSelection();
         if (obj.action.name == controls.Player.Ready.name)

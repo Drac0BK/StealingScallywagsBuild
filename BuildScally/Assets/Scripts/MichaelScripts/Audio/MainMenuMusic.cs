@@ -19,7 +19,6 @@ public class MainMenuMusic : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(audioSource.isPlaying);
 
         if (audioSource.isPlaying == false)
         {

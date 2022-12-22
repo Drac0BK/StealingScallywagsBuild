@@ -34,6 +34,8 @@ public class Settings : MonoBehaviour
     public float musicVolume;
     public float effectsVolume;
 
+    bool isFullScreen = false;
+    int resIndex = 0;
 
     // gets all the relevent information for the game and sets them accordingly
     void Start()
@@ -54,9 +56,15 @@ public class Settings : MonoBehaviour
 
 
         if (fullScreen == "true")
+        {
             isFull.isOn = true;
+            isFullScreen = true;
+        }
         else if (fullScreen == "false")
+        {
             isFull.isOn = false;
+            isFullScreen = false;
+        }
 
         for (int i = 0; i < 6; i++)
         {
@@ -89,20 +97,30 @@ public class Settings : MonoBehaviour
     }
     public void SetResolution(int resolutionIndex)
     {
-        resolutionInd = resolutionIndex;
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen); //Get Size of Window
+        resIndex = resolutionIndex;
     }
 
-    public void SetFullscreen(bool isFullscreen)
+    void ApplyFullRes(bool isFullScreen, int resIndex)
     {
-        Screen.fullScreen = isFullscreen; //Get if fullscreen
-        if (isFullscreen == false)
+        Screen.fullScreen = isFullScreen;
+        resolutionInd = resIndex;
+        Resolution resolution = resolutions[resIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen); //Get Size of Window
+
+    }
+
+    public void SetFullscreen(bool a_isFullscreen)
+    {
+        
+        //Get if fullscreen
+        if (a_isFullscreen == false)
         {
+            isFullScreen = false;
             fullScreen = "false";
         }
         else
         {
+            isFullScreen = true;
             fullScreen = "true";
         }
     }
@@ -132,6 +150,7 @@ public class Settings : MonoBehaviour
 
     public void SaveSettings()
     {
+        ApplyFullRes(isFullScreen, resIndex);
         // saves all the settings
         PlayerPrefs.SetFloat("Volume", setVolume);
 

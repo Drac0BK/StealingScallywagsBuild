@@ -108,9 +108,16 @@ public class MyPlayer : MonoBehaviour
 
         swordUseTime += Time.deltaTime;
 
-        currentWeapon.GetComponent<Renderer>().enabled = !isCarrying;
+        if(currentWeapon == weaponList[0] || currentWeapon == weaponList[1])
+            currentWeapon.GetComponent<Renderer>().enabled = !isCarrying;
+        else if (!bombStop)
+            currentWeapon.GetComponent<Renderer>().enabled = !isCarrying;
+
 
         groundedPlayer = IsGrounded();
+
+        if(isHit)
+            jumped = false;
 
         if (!isHit)
         {
@@ -340,52 +347,55 @@ public class MyPlayer : MonoBehaviour
 
     public void Pick(InputAction.CallbackContext context)
     {
-        //pick up treasure that is within range and drop treasure
-        if (context.started)
+        if (!gameManager.GetPause())
         {
-            if (!isCarrying)
+            //pick up treasure that is within range and drop treasure
+            if (context.started && !isHit)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1);
-                foreach (var hitCollider in hitColliders)
+                if (!isCarrying)
                 {
-                    if (hitCollider.GetComponent<SpawnableObjects>() != null && treasureCarried == null)
+                    Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1);
+                    foreach (var hitCollider in hitColliders)
                     {
-                        StartCoroutine("pickADrop");
-                        treasureCarried = hitCollider.gameObject;
-                        characterAnimator.SetLayerWeight(4, 1);
-                    if (treasureCarried.GetComponent<SpawnableObjects>().IsChest())
-                    {
-                        characterAnimator.SetBool("IsBag", false);
-                        treasureCarried.transform.position = carryPointChest.transform.position;
-                        treasureCarried.transform.rotation = carryPointChest.transform.rotation;
-                    }
-                    else
-                    {
-                        characterAnimator.SetBool("IsBag", true);
-                        treasureCarried.transform.position = carryPointBag.transform.position;
-                        treasureCarried.transform.rotation = carryPointChest.transform.rotation;
-                    }
-                        treasureCarried.GetComponent<SpawnableObjects>().isCarried = true;
-                        treasureCarried.GetComponent<Rigidbody>().isKinematic = true;
-                        treasureCarried.GetComponent<Collider>().enabled = false;
-                        treasureCarried.GetComponent<MeshCollider>().enabled = false;
-                        treasureCarried.transform.rotation = transform.rotation;
-                        isCarrying = true;
-                        treasureCarried.transform.parent = transform;
+                        if (hitCollider.GetComponent<SpawnableObjects>() != null && treasureCarried == null)
+                        {
+                            StartCoroutine("pickADrop");
+                            treasureCarried = hitCollider.gameObject;
+                            characterAnimator.SetLayerWeight(4, 1);
+                            if (treasureCarried.GetComponent<SpawnableObjects>().IsChest())
+                            {
+                                characterAnimator.SetBool("IsBag", false);
+                                treasureCarried.transform.position = carryPointChest.transform.position;
+                                treasureCarried.transform.rotation = carryPointChest.transform.rotation;
+                            }
+                            else
+                            {
+                                characterAnimator.SetBool("IsBag", true);
+                                treasureCarried.transform.position = carryPointBag.transform.position;
+                                treasureCarried.transform.rotation = carryPointChest.transform.rotation;
+                            }
+                            treasureCarried.GetComponent<SpawnableObjects>().isCarried = true;
+                            treasureCarried.GetComponent<Rigidbody>().isKinematic = true;
+                            treasureCarried.GetComponent<Collider>().enabled = false;
+                            treasureCarried.GetComponent<MeshCollider>().enabled = false;
+                            treasureCarried.transform.rotation = transform.rotation;
+                            isCarrying = true;
+                            treasureCarried.transform.parent = transform;
+                        }
                     }
                 }
-            }
-            else if (isCarrying)
-            {
-                treasureCarried.transform.parent = null;
-                treasureCarried.transform.position += transform.forward;
-                StartCoroutine("pickADrop");
-                characterAnimator.SetLayerWeight(4, 0);
-                treasureCarried.GetComponent<Rigidbody>().isKinematic = false;
-                treasureCarried.GetComponent<MeshCollider>().enabled = true;
-                treasureCarried.GetComponent<Collider>().enabled = true;
-                isCarrying = false;
-                treasureCarried = null;
+                else if (isCarrying)
+                {
+                    treasureCarried.transform.parent = null;
+                    treasureCarried.transform.position += transform.forward;
+                    StartCoroutine("pickADrop");
+                    characterAnimator.SetLayerWeight(4, 0);
+                    treasureCarried.GetComponent<Rigidbody>().isKinematic = false;
+                    treasureCarried.GetComponent<MeshCollider>().enabled = true;
+                    treasureCarried.GetComponent<Collider>().enabled = true;
+                    isCarrying = false;
+                    treasureCarried = null;
+                }
             }
         }
     }
@@ -428,7 +438,7 @@ public class MyPlayer : MonoBehaviour
     public void SwapWeapon1(InputAction.CallbackContext context)
     {
         // swap the weapon in the right direction
-        if (context.started)
+        if (context.started && !gameManager.GetPause())
         {
             weaponSpot += 1;
             if (weaponSpot > 2)
@@ -445,7 +455,7 @@ public class MyPlayer : MonoBehaviour
     }
     public void SwapWeapon2(InputAction.CallbackContext context)
     { // swap the weapon in the left direction.
-        if (context.started)
+        if (context.started && !gameManager.GetPause())
         {
             weaponSpot -= 1;
             if (weaponSpot < 0)
@@ -502,24 +512,42 @@ public class MyPlayer : MonoBehaviour
         stunEffect.SetActive(false);
         yield return new WaitForSeconds(1f);
         isHit = false;
-
-        
-    yield return new WaitForSeconds(3f);
-    isInvul = false;
+        foreach (var item in hitPointIcons)
+            item.GetComponent<SpriteRenderer>().color = new Vector4(0, 0, 0, 1.0f);
+        yield return new WaitForSeconds(3f);
+        foreach (var item in hitPointIcons)
+            item.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+        isInvul = false;
     }
     //respawns the player on their corresponding scorezone
     public void Respawn()
     {
-        isHit = true;
-        transform.position = startPos;
-        isCarrying = false;
-        StartCoroutine("InvulFrames", 1f);
-        characterAnimator.SetLayerWeight(4, 0);
-        hitPoints = 4;
-        currentHitPoints = hitPoints;
-        foreach (var item in hitPointIcons)
-            item.gameObject.SetActive(true);
-        characterAnimator.ResetTrigger("Stun_End");
+        if (!isHit)
+        {
+            isHit = true;
+            transform.position = startPos;
+            isCarrying = false;
+            StartCoroutine("InvulFrames", 1f);
+            characterAnimator.SetLayerWeight(4, 0);
+            hitPoints = 4;
+            currentHitPoints = hitPoints;
+            foreach (var item in hitPointIcons)
+                item.gameObject.SetActive(true);
+            characterAnimator.ResetTrigger("Stun_End");
+        }
+        else
+        {
+            isHit = true;
+            transform.position = startPos;
+            isCarrying = false;
+            StartCoroutine("InvulFrames", 3f);
+            characterAnimator.SetLayerWeight(4, 0);
+            hitPoints = 4;
+            currentHitPoints = hitPoints;
+            foreach (var item in hitPointIcons)
+                item.gameObject.SetActive(true);
+            characterAnimator.ResetTrigger("Stun_End");
+        }
     }
     // checks the players values with the powerups in their scorezone and change it
     public void PowerUpCheck()

@@ -21,6 +21,8 @@ public class Weapon : MonoBehaviour
     public GameObject gunSmoke;
     public GameObject swordParticles;
 
+    public MeshRenderer bombMesh = null;
+
     public GameObject bulletPrefab;
 
     public GameObject fuse;
@@ -40,6 +42,9 @@ public class Weapon : MonoBehaviour
     private void FixedUpdate()
     {
         timer -= Time.deltaTime;
+
+        if(gunSmoke != null && hasFired)
+            gunSmoke.gameObject.SetActive(GetComponent<MeshRenderer>().enabled);
 
         string name = GetComponent<MeshFilter>().sharedMesh.name;
         // turns mesh according to which weapon is on
@@ -76,7 +81,8 @@ public class Weapon : MonoBehaviour
             }
             else if (hasThrown == true)
             {
-                GetComponent<MeshRenderer>().enabled = true;
+                if (bombMesh != null)
+                    bombMesh.enabled = true;
                 hasThrown = false;
             }
         }
@@ -92,7 +98,8 @@ public class Weapon : MonoBehaviour
     // turns mesh on and can throw bomb again
     public void ThrowFinish()
     {
-        GetComponent<MeshRenderer>().enabled = true;
+        if(bombMesh!= null)
+        bombMesh.enabled = true;
         hasThrown = false;
         timer = 0;
     }
@@ -174,6 +181,7 @@ public class Weapon : MonoBehaviour
             timer = 3.5f;
             myPlayer.GetComponent<MyPlayer>().reloadStart = hasFired;
             StartCoroutine(GunShot());
+            gunSmoke.SetActive(true);
         }
         else if(isBomb && !hasThrown)
         {
@@ -188,9 +196,6 @@ public class Weapon : MonoBehaviour
                 else if (ownerNumber == 3)
                     AudioManager.Instance.PlayAudio(UnityCore.Audio.AudioType.Bomb_Player_4, "Bomb_FuseBurning", false, 0.0f);
             }
-            {
-                Debug.LogError("There is an audio manager attached");
-            }
 
             animator.SetTrigger("Bomb_Use");
             hasThrown = true;
@@ -202,7 +207,8 @@ public class Weapon : MonoBehaviour
             thrownBomb.GetComponent<Weapon>().SetThrown(false);
             thrownBomb.GetComponent<Weapon>().StartCoroutine(Explode(thrownBomb));
             myPlayer.GetComponent<MyPlayer>().bombStop = hasThrown;
-            GetComponent<MeshRenderer>().enabled = false;
+            if (bombMesh != null)
+                bombMesh.enabled = false;
         }
     }
 
@@ -272,7 +278,6 @@ public class Weapon : MonoBehaviour
     //plays the gun soundeffect for each player
     public IEnumerator GunShot()
     {
-        Debug.Log("kek shooty");
         GameObject gunFireClone = Instantiate(gunFire, gunFire.transform.position, gunFire.transform.rotation);
         gunFireClone.SetActive(true);
 

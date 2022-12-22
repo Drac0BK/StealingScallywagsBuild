@@ -8,16 +8,23 @@ public class ProjectileHit : MonoBehaviour
     Rigidbody body;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.GetComponent<MyPlayer>() != null)
+        if (collision.transform.GetComponent<Treasure>() == null)
         {
-            if (!collision.transform.GetComponent<MyPlayer>().GetInvul())
+            if (collision.transform.GetComponent<MyPlayer>() != null)
             {
-                collision.transform.GetComponent<MyPlayer>().StartCoroutine("InvulFrames", 3f);
-                collision.transform.GetComponent<MyPlayer>().hitPoints -= 1;
-                collision.transform.position += Vector3.forward * 2;
-                Destroy(gameObject);
+                if (!collision.transform.GetComponent<MyPlayer>().GetInvul())
+                {
+                    collision.transform.GetComponent<MyPlayer>().StartCoroutine("InvulFrames", 3f);
+                    collision.transform.GetComponent<MyPlayer>().hitPoints -= 1;
+                    collision.transform.position += transform.forward * 2;
+                    Destroy(gameObject);
+                }
             }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        else
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.transform.GetComponent<Collider>());
+        }
     }
 }

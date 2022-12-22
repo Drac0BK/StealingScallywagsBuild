@@ -24,7 +24,7 @@ public class EventScript : MonoBehaviour
     //public ShipCannon cannon;
     List<GameObject> scoreZones = new List<GameObject>();
     public List<GameObject> cursedTreasure = new List<GameObject>();
-    float eventTimer = 100;
+    public float eventTimer = 100;
 
     public float minTimeInclusive = 5;
     public float maxTimeExclusive = 12;
@@ -46,12 +46,12 @@ public class EventScript : MonoBehaviour
         int chance = Random.Range(0, 100);
         if (Lv1)
         {
-            if (chance >= 0 && chance <= 32)
-                isKraken = true;
-            else if (chance >= 33 && chance <= 65)
-                isWave = true;
-            else if (chance >= 66 && chance <= 98)
-                isCursed = true;
+           if (chance >= 0 && chance <= 32)
+               isKraken = true;
+           else if (chance >= 33 && chance <= 65)
+               isWave = true;
+           else if (chance >= 66 && chance <= 99)
+               isCursed = true;
         }
         else if (Lv2)
         {
@@ -59,7 +59,7 @@ public class EventScript : MonoBehaviour
                 isKraken = true;
             else if (chance >= 33 && chance <= 65)
                 isStalactite = true;
-            else if (chance >= 66 && chance <= 98)
+            else if (chance >= 66 && chance <= 99)
                 isCursed = true;
         }
         eventTimer = Random.Range(minTimeInclusive, maxTimeExclusive);
@@ -87,7 +87,6 @@ public class EventScript : MonoBehaviour
                 krakens.SetActive(true);
                 imageInAction = krakenAnnounce;
                 announcementTimer = 3f;
-                //Debug.Log(voicelineNumber);
                 new WaitForSeconds(5.5f);
                 kraken.FindPlayerSpot();
             }
@@ -175,10 +174,10 @@ public class EventScript : MonoBehaviour
         if (cursedTreasure.Count != 0)
         {
             // for each scorezone spawn a cursed treasure
-            foreach (var item in scoreZones)
+            for(int i = 0; i < GetComponent<GameManager>().players.Count; i++)
             {
                 cursedTreasureSpot = Random.Range(0, cursedTreasure.Count);
-                Instantiate(cursedTreasure[cursedTreasureSpot], item.transform.position + (Vector3.up * 20), item.transform.rotation, transform);
+                Instantiate(cursedTreasure[cursedTreasureSpot], scoreZones[i].transform.position + (Vector3.up * 20), scoreZones[i].transform.rotation, transform);
             }
         }
     }

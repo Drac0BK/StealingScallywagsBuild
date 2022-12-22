@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public IconManager iconManager;
     public WinnerSetScreen winnerSet;
+    public Camera resultCamera;
 
     int playerCount = 0;
     public TMPro.TMP_Text timerText;
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
                 {
                     //playerConfiguration[i].
                     scoreZones[i].gameObject.SetActive(true);
-                    GameObject newPlayer = Instantiate(players[i], scoreZones[i].transform.position + (Vector3.up * 2), scoreZones[i].transform.rotation);
+                    GameObject newPlayer = Instantiate(players[i], scoreZones[i].transform.position + (Vector3.up * 2), scoreZones[i].transform.rotation, transform);
                     scoreZones[i].GetComponent<ScoreZones>().SetPlayer(newPlayer);
                     newPlayer.GetComponent<MyPlayer>().gameManager = this;
                     newPlayer.GetComponent<MyPlayer>().InitializePlayer(playerConfiguration[i]);
@@ -123,7 +124,6 @@ public class GameManager : MonoBehaviour
                 {
                     if (player.gameObject == playerPrefabs[i])
                     {
-                        Debug.Log(iconSpot);
                         if (player.gameObject.name.Contains("Shell"))
                         {
                             iconManager.objectList[iconSpot].gameObject.SetActive(true);
@@ -268,7 +268,6 @@ public class GameManager : MonoBehaviour
             {
                 if (timer < 0)
                 {
-                    //Camera.main.gameObject.SetActive(false);
                     timerText.gameObject.SetActive(false);
                     timerStop = true;
                     Time.timeScale = 1;
@@ -296,7 +295,11 @@ public class GameManager : MonoBehaviour
                     {
                         Destroy(obj);
                     }
+                    resultCamera.gameObject.SetActive(true);
+                    Camera.main.gameObject.SetActive(false) ;
                     gameObject.SetActive(false);
+
+                    
                 }
             }
         }

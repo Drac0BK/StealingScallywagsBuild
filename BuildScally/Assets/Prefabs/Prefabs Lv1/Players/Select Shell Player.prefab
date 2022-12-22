@@ -57,7 +57,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274075890043444427}
-  m_LocalRotation: {x: -0.88438356, y: 0.20028305, z: -0.1486713, w: 0.3945243}
+  m_LocalRotation: {x: -0.842965, y: 0.268271, z: -0.3060186, w: 0.35184282}
   m_LocalPosition: {x: 0.023, y: 0.259, z: -0.099}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -65,7 +65,7 @@ Transform:
   - {fileID: 7899234168570444989}
   m_Father: {fileID: 1091628261991482340}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: -140.337, y: -33.153015, z: 37.774994}
+  m_LocalEulerAnglesHint: {x: -154.59601, y: -51.27301, z: 47.654007}
 --- !u!33 &4551377428747291092
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   gunFire: {fileID: 8138938263102618382}
   gunSmoke: {fileID: 2840543000791359985}
   swordParticles: {fileID: 0}
+  bombMesh: {fileID: 0}
   bulletPrefab: {fileID: 5967520686991859592, guid: 5f0e8530d96b50849aea7302097083f9, type: 3}
   fuse: {fileID: 0}
   fusePoint: {fileID: 0}
@@ -10336,6 +10337,7 @@ MonoBehaviour:
   gunFire: {fileID: 2627885576744483516, guid: 50c0c8040b92bea4a9f51a0cef8267a3, type: 3}
   gunSmoke: {fileID: 3925966253241291600, guid: 560a2656b66a7d642a2f0ff2f0d32a94, type: 3}
   swordParticles: {fileID: 0}
+  bombMesh: {fileID: 4826714837483428875}
   bulletPrefab: {fileID: 0}
   fuse: {fileID: 9024481933057771444, guid: f01fddee90a7a5348bec1f783efa7a7c, type: 3}
   fusePoint: {fileID: 8949870337740403064}
@@ -30539,6 +30541,7 @@ MonoBehaviour:
   gunFire: {fileID: 2627885576744483516, guid: 50c0c8040b92bea4a9f51a0cef8267a3, type: 3}
   gunSmoke: {fileID: 3925966253241291600, guid: 560a2656b66a7d642a2f0ff2f0d32a94, type: 3}
   swordParticles: {fileID: 7695213221731918986}
+  bombMesh: {fileID: 0}
   bulletPrefab: {fileID: 0}
   fuse: {fileID: 0}
   fusePoint: {fileID: 0}
@@ -41623,7 +41626,7 @@ MonoBehaviour:
   isMoving: 0
   ringColor: {r: 0.8, g: 0, b: 0, a: 1}
   flash: {r: 0, g: 0, b: 0, a: 0}
-  original: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 0}
+  original: {r: 1, g: 1, b: 1, a: 0}
   currentWeapon: {fileID: 4149249960482445693}
   weaponList:
   - {fileID: 4149249960482445693}

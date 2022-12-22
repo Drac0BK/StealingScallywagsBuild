@@ -86,7 +86,6 @@ public class SoloPlayer : MonoBehaviour
             blunderTimer -= Time.deltaTime;
         else if (!reloadStart && blunderTimer < 0)
         {
-            Debug.Log("GUN READY");
             weaponList[1].GetComponent<WeaponSolo>().ReloadFinish();
             blunderTimer = 3.5f;
         }
@@ -95,7 +94,6 @@ public class SoloPlayer : MonoBehaviour
             bombTimer -= Time.deltaTime;
         else if (!bombStop && bombTimer < 0)
         {
-            Debug.Log("BOMB READY");
             weaponList[2].GetComponent<WeaponSolo>().ReloadFinish();
             currentWeaponScript.ThrowFinish();
             bombTimer = 7.0f;

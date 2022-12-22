@@ -143,6 +143,6 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0, z: 0}
   timer: 5
   fallManager: {fileID: 0}
-  speed: 10
+  speed: 20
   dustEffect: {fileID: 6214939895839900326, guid: 84ddaf177fc488243b92b95730c73711, type: 3}
   shadow: {fileID: 0}

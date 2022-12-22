@@ -49,7 +49,6 @@ public class PlayerSetupMenuController : MonoBehaviour
     {
         if(!inputEnabled) { return; }
 
-        Debug.Log("Input recieved");
         PlayerConfigManager.instance.SetPlayerModel(playerIndex, playerModel);
         readyPanel.SetActive(true);
         readyButton.Select();
@@ -60,7 +59,6 @@ public class PlayerSetupMenuController : MonoBehaviour
     {
         if (!inputEnabled) { return; }
 
-        Debug.Log("Input recieved");
         PlayerConfigManager.instance.SetPlayerModel(playerIndex, null);
         readyPanel.SetActive(false);
         confirmButton.Select();

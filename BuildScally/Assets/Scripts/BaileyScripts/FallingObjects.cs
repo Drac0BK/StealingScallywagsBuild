@@ -44,7 +44,10 @@ public class FallingObjects : MonoBehaviour
                 if (collider.GetComponent<Rigidbody>() != null)
                     collider.GetComponent<Rigidbody>().AddExplosionForce(20, transform.position, 7.5f, 0.1f, ForceMode.Impulse);
                 if (collider.GetComponent<MyPlayer>() != null && collider.GetComponent<MyPlayer>().isHit == false)
+                {
+                    collider.GetComponent<MyPlayer>().hitPoints -= 1;
                     collider.GetComponent<MyPlayer>().StartCoroutine("InvulFrames", 3f);
+                }
             }
         }
     }

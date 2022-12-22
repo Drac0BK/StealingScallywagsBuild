@@ -48,8 +48,8 @@ public class Spawner : MonoBehaviour
         pos = spawnPoints[randomSpawner].transform.position;
         if (spawnPoints[randomSpawner].GetComponent<SpawnerRange>() != null)
         {
-            xPoint = spawnPoints[randomSpawner].GetComponent<SpawnerRange>().x;
-            yPoint = spawnPoints[randomSpawner].GetComponent<SpawnerRange>().y;
+            xPoint = spawnPoints[randomSpawner].GetComponent<SpawnerRange>().x/2;
+            yPoint = spawnPoints[randomSpawner].GetComponent<SpawnerRange>().y/2;
             treasurePrefabs = spawnPoints[randomSpawner].GetComponent<SpawnerRange>().treasurePrefabs;
         }
 
@@ -81,7 +81,7 @@ public class Spawner : MonoBehaviour
             }
         }
         //spawns the treasure in
-        GameObject treasure = Instantiate(treasurePrefabs[randTreasure], randSpawn, spawnPoints[randomSpawner].transform.rotation, null);
+        GameObject treasure = Instantiate(treasurePrefabs[randTreasure], randSpawn, spawnPoints[randomSpawner].transform.rotation, spawnPoints[randomSpawner].transform);
         treasure.GetComponent<SpawnableObjects>().Spawner = gameObject;
         canSpawn = false;
     }

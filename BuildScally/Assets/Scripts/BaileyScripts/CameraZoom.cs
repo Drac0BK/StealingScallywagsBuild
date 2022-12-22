@@ -69,16 +69,6 @@ public class CameraZoom : MonoBehaviour
             maxZoom = 27;
         }
 
-        for(int i = 0; i < playerIcons.Count; i++)
-        {
-            GameObject icon = playerIcons[i];
-
-            float zoom = (newXZoom + newZZoom) / 2;
-            zoom = zoom / minZoom;
-
-            Color color = new Vector4(1,1,1,zoom);
-            icon.GetComponent<Image>().color = color;
-        }
     }
 
     private void LateUpdate()
