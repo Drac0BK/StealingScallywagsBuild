@@ -12,7 +12,6 @@ public class SceneChanger : MonoBehaviour
     public void Menu()
     {
         Time.timeScale = 1;
-        PlayerConfigManager playerConfigManager;
         playerConfigManager = FindObjectOfType<PlayerConfigManager>();
         if (playerConfigManager != null)
             Destroy(GameObject.Find("PlayerConfigurationManager"));
@@ -51,6 +50,7 @@ public class SceneChanger : MonoBehaviour
 
     IEnumerator LoadSceneAsync(string sceneId)
     {
+        
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
 
         LoadingScreen.SetActive(true);
@@ -65,6 +65,5 @@ public class SceneChanger : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(5f);
     }
-
-
+   
 }

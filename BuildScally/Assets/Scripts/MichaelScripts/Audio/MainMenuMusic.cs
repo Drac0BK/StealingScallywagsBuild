@@ -35,7 +35,7 @@ public class MainMenuMusic : MonoBehaviour
 
         }
 
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().buildIndex.ToString() == "Lvl2Scene")
         {
             Destroy(gameObject);
         }
