@@ -25476,7 +25476,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1496561867}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: LevelSelectScene
+        m_MethodName: Level1Load
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27222,7 +27222,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 40.013, y: 24.612, z: -30.685}
 --- !u!1001 &1565860953
 PrefabInstance:
@@ -29312,7 +29312,7 @@ Transform:
   - {fileID: 923780761}
   - {fileID: 483789304}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1675153811
 GameObject:
@@ -36791,7 +36791,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2136109725
 PrefabInstance:
