@@ -41,8 +41,10 @@ public class SpawnableObjects : MonoBehaviour
         {
             if (!isPowerUp)
             {
+                if (Spawner != null)
+                    Spawner.GetComponent<Spawner>().spawnLimit += 1;
+
                 Destroy(gameObject);
-                Spawner.GetComponent<Spawner>().spawnLimit += 1;
             }
             else if(respawnLocation != null)
             {

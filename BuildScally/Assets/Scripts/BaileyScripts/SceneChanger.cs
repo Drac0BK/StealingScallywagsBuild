@@ -26,11 +26,13 @@ public class SceneChanger : MonoBehaviour
     }
     public void Level1Load()
     {
-        StartCoroutine(LoadSceneAsync("Lvl1Scene"));
+        SceneManager.LoadScene("Lvl1Scene");
+        //StartCoroutine(LoadSceneAsync("Lvl1Scene"));
     }
     public void Level2Load()
     {
-        StartCoroutine(LoadSceneAsync("Lvl2Scene"));
+        SceneManager.LoadScene("Lvl2Scene");
+        //StartCoroutine(LoadSceneAsync("Lvl2Scene"));
     }
     public void ReloadScene()
     {
@@ -52,18 +54,18 @@ public class SceneChanger : MonoBehaviour
     {
         
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
-
-        LoadingScreen.SetActive(true);
-
-        while (!operation.isDone)
-        {
-            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
-
-            //Loading bar
-
-            yield return null;
-        }
-        yield return new WaitForSecondsRealtime(5f);
+        //if(LoadingScreen!= null)
+        //LoadingScreen.SetActive(true);
+        //
+        //while (!operation.isDone)
+        //{
+        //    float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+        //
+        //    //Loading bar
+        //
+        //    yield return null;
+        //}
+        yield return new WaitForSecondsRealtime(0f);
     }
    
 }
