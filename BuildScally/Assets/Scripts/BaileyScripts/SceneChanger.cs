@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityCore.Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,14 +9,18 @@ public class SceneChanger : MonoBehaviour
     //changes the scene to a corresponding one 
     PlayerConfigManager playerConfigManager;
     public GameObject LoadingScreen;
+    AudioManager audioManager;
 
     public void Menu()
     {
+        audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager != null)
+            Destroy(audioManager.gameObject);
         Time.timeScale = 1;
         playerConfigManager = FindObjectOfType<PlayerConfigManager>();
         if (playerConfigManager != null)
             Destroy(GameObject.Find("PlayerConfigurationManager"));
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MusicMainMenu");
     }
     public void CharacterSelect()
     {
@@ -26,6 +31,9 @@ public class SceneChanger : MonoBehaviour
     }
     public void Level1Load()
     {
+        audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager != null)
+            Destroy(audioManager.gameObject);
         SceneManager.LoadScene("Lvl1Scene");
         //StartCoroutine(LoadSceneAsync("Lvl1Scene"));
     }
